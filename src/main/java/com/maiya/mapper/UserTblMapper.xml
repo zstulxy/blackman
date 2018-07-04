@@ -16,64 +16,6 @@
   <resultMap id="ResultMapWithBLOBs" type="com.maiya.bean.UserTbl" extends="BaseResultMap" >
     <result column="background_icon" property="backgroundIcon" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
     id, name, phone_number, verification, password, avatar, email, company, privilege, 
     privilegetype
@@ -81,36 +23,6 @@
   <sql id="Blob_Column_List" >
     background_icon
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.maiya.bean.UserTblExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from user_tbl
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.maiya.bean.UserTblExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from user_tbl
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -122,12 +34,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from user_tbl
     where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.maiya.bean.UserTblExample" >
-    delete from user_tbl
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
   </delete>
   <insert id="insert" parameterType="com.maiya.bean.UserTbl" >
     insert into user_tbl (id, name, phone_number, 
@@ -212,86 +118,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.maiya.bean.UserTblExample" resultType="java.lang.Integer" >
-    select count(*) from user_tbl
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update user_tbl
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phoneNumber != null" >
-        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="record.verification != null" >
-        verification = #{record.verification,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null" >
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.avatar != null" >
-        avatar = #{record.avatar,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null" >
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.company != null" >
-        company = #{record.company,jdbcType=VARCHAR},
-      </if>
-      <if test="record.privilege != null" >
-        privilege = #{record.privilege,jdbcType=VARCHAR},
-      </if>
-      <if test="record.privilegetype != null" >
-        privilegetype = #{record.privilegetype,jdbcType=INTEGER},
-      </if>
-      <if test="record.backgroundIcon != null" >
-        background_icon = #{record.backgroundIcon,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update user_tbl
-    set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
-      verification = #{record.verification,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      avatar = #{record.avatar,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      company = #{record.company,jdbcType=VARCHAR},
-      privilege = #{record.privilege,jdbcType=VARCHAR},
-      privilegetype = #{record.privilegetype,jdbcType=INTEGER},
-      background_icon = #{record.backgroundIcon,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update user_tbl
-    set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
-      verification = #{record.verification,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      avatar = #{record.avatar,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      company = #{record.company,jdbcType=VARCHAR},
-      privilege = #{record.privilege,jdbcType=VARCHAR},
-      privilegetype = #{record.privilegetype,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.UserTbl" >
     update user_tbl
     <set >
