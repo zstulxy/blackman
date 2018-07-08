@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maiya.dao.SetsTblMapper" >
+  <resultMap id="BaseResultMap" type="com.maiya.bean.SetsTbl" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="toothpaste" property="toothpaste" jdbcType="VARCHAR" />
+    <result column="toothbrush" property="toothbrush" jdbcType="VARCHAR" />
+    <result column="mouthwash" property="mouthwash" jdbcType="VARCHAR" />
+    <result column="dentalfloss" property="dentalfloss" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, toothpaste, toothbrush, mouthwash, dentalfloss
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sets_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sets_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.maiya.bean.SetsTbl" >
+    insert into sets_tbl (id, user_id, toothpaste, 
+      toothbrush, mouthwash, dentalfloss
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{toothpaste,jdbcType=VARCHAR}, 
+      #{toothbrush,jdbcType=VARCHAR}, #{mouthwash,jdbcType=VARCHAR}, #{dentalfloss,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maiya.bean.SetsTbl" >
+    insert into sets_tbl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="toothpaste != null" >
+        toothpaste,
+      </if>
+      <if test="toothbrush != null" >
+        toothbrush,
+      </if>
+      <if test="mouthwash != null" >
+        mouthwash,
+      </if>
+      <if test="dentalfloss != null" >
+        dentalfloss,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="toothpaste != null" >
+        #{toothpaste,jdbcType=VARCHAR},
+      </if>
+      <if test="toothbrush != null" >
+        #{toothbrush,jdbcType=VARCHAR},
+      </if>
+      <if test="mouthwash != null" >
+        #{mouthwash,jdbcType=VARCHAR},
+      </if>
+      <if test="dentalfloss != null" >
+        #{dentalfloss,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.SetsTbl" >
+    update sets_tbl
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="toothpaste != null" >
+        toothpaste = #{toothpaste,jdbcType=VARCHAR},
+      </if>
+      <if test="toothbrush != null" >
+        toothbrush = #{toothbrush,jdbcType=VARCHAR},
+      </if>
+      <if test="mouthwash != null" >
+        mouthwash = #{mouthwash,jdbcType=VARCHAR},
+      </if>
+      <if test="dentalfloss != null" >
+        dentalfloss = #{dentalfloss,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maiya.bean.SetsTbl" >
+    update sets_tbl
+    set user_id = #{userId,jdbcType=BIGINT},
+      toothpaste = #{toothpaste,jdbcType=VARCHAR},
+      toothbrush = #{toothbrush,jdbcType=VARCHAR},
+      mouthwash = #{mouthwash,jdbcType=VARCHAR},
+      dentalfloss = #{dentalfloss,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

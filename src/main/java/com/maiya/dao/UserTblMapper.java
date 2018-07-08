@@ -1,19 +1,20 @@
 package com.maiya.dao;
 
 import com.maiya.bean.UserTbl;
+import com.maiya.bean.UserTblWithBLOBs;
 
 public interface UserTblMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(UserTbl record);
+    int insert(UserTblWithBLOBs record);
 
-    int insertSelective(UserTbl record);
+    int insertSelective(UserTblWithBLOBs record);
 
-    UserTbl selectByPrimaryKey(Long id);
+    UserTblWithBLOBs selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(UserTbl record);
+    int updateByPrimaryKeySelective(UserTblWithBLOBs record);
 
-    int updateByPrimaryKeyWithBLOBs(UserTbl record);
+    int updateByPrimaryKeyWithBLOBs(UserTblWithBLOBs record);
 
     int updateByPrimaryKey(UserTbl record);
 }

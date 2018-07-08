@@ -5,6 +5,10 @@ public class UserTbl {
 
     private String name;
 
+    private String consultant;
+
+    private Long consultantId;
+
     private String phoneNumber;
 
     private String verification;
@@ -15,13 +19,13 @@ public class UserTbl {
 
     private String email;
 
-    private String company;
-
     private String privilege;
 
-    private Integer privilegetype;
+    private Byte privilegetype;
 
-    private String backgroundIcon;
+    private Short points;
+
+    private Byte identity;
 
     public Long getId() {
         return id;
@@ -37,6 +41,22 @@ public class UserTbl {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getConsultant() {
+        return consultant;
+    }
+
+    public void setConsultant(String consultant) {
+        this.consultant = consultant;
+    }
+
+    public Long getConsultantId() {
+        return consultantId;
+    }
+
+    public void setConsultantId(Long consultantId) {
+        this.consultantId = consultantId;
     }
 
     public String getPhoneNumber() {
@@ -79,14 +99,6 @@ public class UserTbl {
         this.email = email;
     }
 
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
     public String getPrivilege() {
         return privilege;
     }
@@ -95,19 +107,27 @@ public class UserTbl {
         this.privilege = privilege;
     }
 
-    public Integer getPrivilegetype() {
+    public Byte getPrivilegetype() {
         return privilegetype;
     }
 
-    public void setPrivilegetype(Integer privilegetype) {
+    public void setPrivilegetype(Byte privilegetype) {
         this.privilegetype = privilegetype;
     }
 
-    public String getBackgroundIcon() {
-        return backgroundIcon;
+    public Short getPoints() {
+        return points;
     }
 
-    public void setBackgroundIcon(String backgroundIcon) {
-        this.backgroundIcon = backgroundIcon;
+    public void setPoints(Short points) {
+        this.points = points;
+    }
+
+    public Byte getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(Byte identity) {
+        this.identity = identity;
     }
 }
