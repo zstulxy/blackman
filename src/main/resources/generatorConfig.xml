@@ -49,6 +49,7 @@
         </javaClientGenerator>
         <!-- 指定数据库表 -->
         <table schema="" tableName="address_tbl"
+               domainObjectName="Address"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -57,6 +58,7 @@
         </table>
 
         <table schema="" tableName="coupon_tbl"
+               domainObjectName="Coupon"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -65,6 +67,7 @@
         </table>
 
         <table schema="" tableName="diagnosis_tbl"
+               domainObjectName="Diagnosis"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -73,6 +76,7 @@
         </table>
 
         <table schema="" tableName="doctors_tbl"
+               domainObjectName="Doctors"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -81,6 +85,7 @@
         </table>
 
         <table schema="" tableName="knowledge_tbl"
+               domainObjectName="Knowlege"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -89,6 +94,7 @@
         </table>
 
         <table schema="" tableName="orders_tbl"
+               domainObjectName="Orders"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -97,6 +103,7 @@
         </table>
 
         <table schema="" tableName="persontag_tbl"
+               domainObjectName="Persontag"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -105,6 +112,7 @@
         </table>
 
         <table schema="" tableName="products_tbl"
+               domainObjectName="Products"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -113,6 +121,7 @@
         </table>
 
         <table schema="" tableName="promotion_tbl"
+               domainObjectName="Promotion"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -121,6 +130,7 @@
         </table>
 
         <table schema="" tableName="sets_tbl"
+               domainObjectName="Sets"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -129,6 +139,7 @@
         </table>
 
         <table schema="" tableName="user_tbl"
+               domainObjectName="User"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
