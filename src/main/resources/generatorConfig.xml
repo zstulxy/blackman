@@ -6,11 +6,18 @@
 <generatorConfiguration>
     <!--mysql 连接数据库jar 这里选择自己本地位置-->
     <classPathEntry location="C:\Users\linxiaoyong\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar" />
-    <context id="testTables" targetRuntime="MyBatis3">
-        <!-- 生成的model实现Serializable借口 -->
+    <context id="maiyaTable" targetRuntime="MyBatis3">
+        <!-- 生成的model实现Serializable接口 -->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin">
             <property name="suppressJavaInterface" value="false"/>
         </plugin>
+
+        <!-- 生成一对一配置 -->
+        <plugin type="cc.bandaotixi.plugins.OneToOnePlugin"/>
+        <!-- 生成一对多配置 -->
+        <plugin type="cc.bandaotixi.plugins.OneToManyPlugin"/>
+        <plugin type="cc.bandaotixi.plugins.BatchInsertPlugin"/>
+        <plugin type="cc.bandaotixi.plugins.BatchUpdatePlugin"/>
 
         <!-- 自动生成equals方法和hashcode方法 -->
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
@@ -24,7 +31,7 @@
         </commentGenerator>
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/maiya?useUnicode=true&amp;characterEncoding=UTF-8"
+                        connectionURL="jdbc:mysql://localhost:3306/maiya?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=true"
                         userId="root"
                         password="123456" />
         <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
@@ -60,12 +67,12 @@
         </javaClientGenerator>
         <!-- 指定数据库表 -->
         <table schema="" tableName="address_tbl"
-               domainObjectName="Address"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false">
+                domainObjectName="Address"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false">
         </table>
 
         <table schema="" tableName="coupon_tbl"
@@ -156,6 +163,12 @@
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true" />
+            <oneToMany mappingTable="address_tbl"
+                       column="user_id"
+                       joinColumn="user_id"
+                       where="address_tbl.user_id = user_tbl.id"/>
+            <!--映射的表必须配置table-->
         </table>
     </context>
 </generatorConfiguration>
