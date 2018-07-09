@@ -2,9 +2,8 @@ package com.maiya.impl;
 
 import com.maiya.bean.Auth;
 import com.maiya.dao.AuthMapper;
-import com.maiya.service.AuthService;
 import org.springframework.stereotype.Service;
-
+import com.maiya.service.AuthService;
 import javax.annotation.Resource;
 
 @Service("authService")

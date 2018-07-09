@@ -41,9 +41,9 @@
     <!-- 静态资源处理  css js imgs -->
     <mvc:resources location="/resources/**" mapping="/resources"/>
 
-    <mvc:cors>
-        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
-    </mvc:cors>
+    <!--<mvc:cors>-->
+        <!--<mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>-->
+    <!--</mvc:cors>-->
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
     <bean id="mappingJackson2HttpMessageConverter"
