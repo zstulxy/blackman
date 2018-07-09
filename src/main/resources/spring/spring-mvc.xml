@@ -8,41 +8,78 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-    <!-- 自动扫描的包名 -->
-    <context:component-scan base-package="maiya.blackman.controllers" />
+    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+    <context:component-scan base-package="maiya.blackman.controllers">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
-    <!-- 默认的注解映射的支持 -->
+    <!-- <mvc:mapping path="/**" /> 如果只写一个*，则不能拦截类似/*/*的请求。静态资源的请求需要判断不进行拦截 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="maiya.blackman.interceptor.CommonInterceptor">
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 扩充了注解驱动，可以将请求参数绑定到控制器参数 -->
     <mvc:annotation-driven/>
-    
-    <!-- 视图解释类,定义跳转的文件的前后缀 -->
-    <!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" 
-        /> <property name="prefix" value="/views/" /> <property name="suffix" value=".jsp" 
-        /> <property name="requestContextAttribute" value="rc" /> </bean> -->
-    <bean id="viewResolver"
-        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass"
-            value="org.springframework.web.servlet.view.JstlView" />
-        <property name="prefix" value="/view/" />
-        <property name="suffix" value=".jsp" />
+    <mvc:default-servlet-handler/>
+    <!-- 静态资源处理  css js imgs -->
+    <mvc:resources location="/resources/**" mapping="/resources"/>
+
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+    </mvc:cors>
+
+    <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+    <bean id="mappingJackson2HttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <!-- <value>text/html;charset=UTF-8</value>   -->
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="objectMapper">
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                <property name="serializationInclusion">
+                    <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+                </property>
+            </bean>
+        </property>
     </bean>
 
+    <!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="utf-8" />
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="10485760000" />
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960" />
+        <!-- 启用是为了推迟文件解析，以便捕获文件大小异常 -->
+        <property name="resolveLazily" value="true"/>
+    </bean>
 
-    <!-- 拦截器 -->
-    <!-- <mvc:interceptors> <bean class="com.fpx.ce.foundation.preference.PreferenceChangeInterceptor" 
-        /> <mvc:interceptor> <mvc:mapping path="/page/home"/> <bean class="com.fpx.ce.foundation.user.UserInterceptor" 
-        /> </mvc:interceptor> <mvc:interceptor> <mvc:mapping path="/service/**" /> 
-        <bean class="com.fpx.ce.foundation.log.LogHandlerInterceptor" /> </mvc:interceptor> 
-        <mvc:interceptor> <mvc:mapping path="/test/**" /> <mvc:mapping path="/service/**" 
-        /> <bean class="com.lemon.finder.web.SharedRenderVariableInterceptor" /> 
-        </mvc:interceptor> </mvc:interceptors> -->
-
-
-    <!-- 对静态资源文件的访问 方案一 （二选一） -->
-    <mvc:default-servlet-handler />
-
-    <!-- 对静态资源文件的访问 方案二 （二选一） -->
-    <!-- <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/> 
-        <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/> 
-        <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/> -->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <value>
+                html=text/html
+                json=application/json
+                json=application/callback
+                image=image/*
+            </value>
+        </property>
+        <property name="defaultContentType" value="text/html"/>
+    </bean>
 </beans>

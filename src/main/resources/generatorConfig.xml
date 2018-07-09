@@ -12,12 +12,12 @@
             <property name="suppressJavaInterface" value="false"/>
         </plugin>
 
-        <!-- 生成一对一配置 -->
-        <plugin type="cc.bandaotixi.plugins.OneToOnePlugin"/>
-        <!-- 生成一对多配置 -->
-        <plugin type="cc.bandaotixi.plugins.OneToManyPlugin"/>
-        <plugin type="cc.bandaotixi.plugins.BatchInsertPlugin"/>
-        <plugin type="cc.bandaotixi.plugins.BatchUpdatePlugin"/>
+        <!--&lt;!&ndash; 生成一对一配置 &ndash;&gt;-->
+        <!--<plugin type="cc.bandaotixi.plugins.OneToOnePlugin"/>-->
+        <!--&lt;!&ndash; 生成一对多配置 &ndash;&gt;-->
+        <!--<plugin type="cc.bandaotixi.plugins.OneToManyPlugin"/>-->
+        <!--<plugin type="cc.bandaotixi.plugins.BatchInsertPlugin"/>-->
+        <!--<plugin type="cc.bandaotixi.plugins.BatchUpdatePlugin"/>-->
 
         <!-- 自动生成equals方法和hashcode方法 -->
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
@@ -27,7 +27,7 @@
 
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="false" />
+            <property name="suppressAllComments" value="true" />
         </commentGenerator>
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
@@ -164,11 +164,16 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true" />
-            <oneToMany mappingTable="address_tbl"
-                       column="user_id"
-                       joinColumn="user_id"
-                       where="address_tbl.user_id = user_tbl.id"/>
-            <!--映射的表必须配置table-->
+        </table>
+
+        <table schema="" tableName="auth_tbl"
+               domainObjectName="Auth"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true" />
         </table>
     </context>
 </generatorConfiguration>

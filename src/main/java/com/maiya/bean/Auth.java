@@ -1,15 +1,20 @@
 package com.maiya.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
-public class Diagnosis implements Serializable {
+public class Auth implements Serializable {
     private Long id;
 
     private Long userId;
 
-    private String notes;
+    private String loginId;
 
-    private String images;
+    private String token;
+
+    private Date lastVisit;
+
+    private User user;
 
     private static final long serialVersionUID = 1L;
 
@@ -29,20 +34,28 @@ public class Diagnosis implements Serializable {
         this.userId = userId;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getLoginId() {
+        return loginId;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
-    public String getImages() {
-        return images;
+    public String getToken() {
+        return token;
     }
 
-    public void setImages(String images) {
-        this.images = images;
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getLastVisit() {
+        return lastVisit;
+    }
+
+    public void setLastVisit(Date lastVisit) {
+        this.lastVisit = lastVisit;
     }
 
     @Override
@@ -56,11 +69,12 @@ public class Diagnosis implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Diagnosis other = (Diagnosis) that;
+        Auth other = (Auth) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getNotes() == null ? other.getNotes() == null : this.getNotes().equals(other.getNotes()))
-            && (this.getImages() == null ? other.getImages() == null : this.getImages().equals(other.getImages()));
+            && (this.getLoginId() == null ? other.getLoginId() == null : this.getLoginId().equals(other.getLoginId()))
+            && (this.getToken() == null ? other.getToken() == null : this.getToken().equals(other.getToken()))
+            && (this.getLastVisit() == null ? other.getLastVisit() == null : this.getLastVisit().equals(other.getLastVisit()));
     }
 
     @Override
@@ -69,8 +83,9 @@ public class Diagnosis implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getNotes() == null) ? 0 : getNotes().hashCode());
-        result = prime * result + ((getImages() == null) ? 0 : getImages().hashCode());
+        result = prime * result + ((getLoginId() == null) ? 0 : getLoginId().hashCode());
+        result = prime * result + ((getToken() == null) ? 0 : getToken().hashCode());
+        result = prime * result + ((getLastVisit() == null) ? 0 : getLastVisit().hashCode());
         return result;
     }
 
@@ -82,10 +97,19 @@ public class Diagnosis implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
-        sb.append(", notes=").append(notes);
-        sb.append(", images=").append(images);
+        sb.append(", loginId=").append(loginId);
+        sb.append(", token=").append(token);
+        sb.append(", lastVisit=").append(lastVisit);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
