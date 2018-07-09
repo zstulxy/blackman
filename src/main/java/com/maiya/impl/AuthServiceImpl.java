@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.maiya.service.AuthService;
 import javax.annotation.Resource;
 
-@Service("authService")
+@Service("authTblService")
 public class AuthServiceImpl implements AuthService {
     @Resource
     private AuthMapper dao;

@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/loginController")
+@RequestMapping("/login")
 public class LoginController extends AuthModule{
     private static Logger logger = Logger.getLogger(LoginController.class);
 
-    @RequestMapping(value="/login", method=RequestMethod.GET)
+    @RequestMapping(value="/value", method=RequestMethod.GET)
     public @ResponseBody String getTest(HttpServletRequest request){
         String token = request.getParameter("token");
         boolean isAuth = this.isAuthSuccess(token);
