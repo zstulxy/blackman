@@ -1,7 +1,7 @@
-package maiya.blackman.controllers;
+package com.maiya.controllers;
 
 import com.maiya.bean.Auth;
-import maiya.blackman.service.AuthService;
+import com.maiya.service.AuthService;
 import org.apache.log4j.Logger;
 
 import javax.annotation.Resource;

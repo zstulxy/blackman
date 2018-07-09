@@ -1,4 +1,4 @@
-package maiya.blackman.interceptor;
+package com.maiya.interceptor;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;

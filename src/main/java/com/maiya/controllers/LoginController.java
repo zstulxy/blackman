@@ -5,7 +5,7 @@
  * @author cx
  *
  */
-package maiya.blackman.controllers;
+package com.maiya.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 

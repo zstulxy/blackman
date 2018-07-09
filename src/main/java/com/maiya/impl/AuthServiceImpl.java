@@ -1,8 +1,8 @@
-package maiya.blackman.impl;
+package com.maiya.impl;
 
 import com.maiya.bean.Auth;
 import com.maiya.dao.AuthMapper;
-import maiya.blackman.service.AuthService;
+import com.maiya.service.AuthService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

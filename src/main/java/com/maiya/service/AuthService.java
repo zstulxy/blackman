@@ -1,4 +1,4 @@
-package maiya.blackman.service;
+package com.maiya.service;
 
 import com.maiya.bean.Auth;
 
