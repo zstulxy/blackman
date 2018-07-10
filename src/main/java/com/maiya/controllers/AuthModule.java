@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 
 public class AuthModule {
     private static Logger logger = Logger.getLogger(AuthModule.class);
-
     @Resource
     private AuthService authService;
     private Long userId_;

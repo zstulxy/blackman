@@ -21,7 +21,7 @@
         http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
     <!-- 自动扫描 -->
-    <context:component-scan base-package="com.maiya" />
+    <context:component-scan base-package="com.maiya.*" />
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -55,7 +55,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath:com/maiya/mapper/*.xml">
+        <property name="mapperLocations" value="classpath:com/maiya/**/*.xml">
         </property>
         <!-- 分页查询 -->
         <property name="plugins">

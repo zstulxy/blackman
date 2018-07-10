@@ -27,7 +27,6 @@ public class LoginController extends AuthModule{
         if (!isAuth) {
             return "验证失败，token错误";
         }
-
         return "你好啊，测试成功!!!";
     }
     
