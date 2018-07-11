@@ -10,8 +10,8 @@
     <collection property="user" resultMap="userResult" />
   </resultMap>
 
-  <resultMap id="userResult" type="com.maiya.bean.User">
-    <id column="u_user_id" jdbcType="BIGINT" property="id" />
+  <resultMap id="userResult" type="com.maiya.bean.User" >
+    <id column="u_user_id" property="id" jdbcType="BIGINT" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="consultant" jdbcType="VARCHAR" property="consultant" />
     <result column="consultant_id" jdbcType="BIGINT" property="consultantId" />
