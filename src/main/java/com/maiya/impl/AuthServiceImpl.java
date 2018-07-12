@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service("authTblService")
+@Service("authService")
 public class AuthServiceImpl implements AuthService {
 	@Resource 
 	private AuthMapper dao;

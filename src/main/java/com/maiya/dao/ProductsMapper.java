@@ -2,6 +2,8 @@ package com.maiya.dao;
 
 import com.maiya.bean.Products;
 
+import java.util.List;
+
 public interface ProductsMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface ProductsMapper {
     int updateByPrimaryKeySelective(Products record);
 
     int updateByPrimaryKey(Products record);
+
+    List<Products> selectByBrandType(Byte brandType);
 }
