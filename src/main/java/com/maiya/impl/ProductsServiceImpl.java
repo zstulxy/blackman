@@ -6,6 +6,7 @@ import com.maiya.service.ProductsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 @Service("productsService")
@@ -39,5 +40,9 @@ public class ProductsServiceImpl implements ProductsService {
 
     public List<Products> selectByBrandType(Byte brandType) {
         return dao.selectByBrandType(brandType);
+    }
+
+    public List<Object> selectAllProducts(HashMap<String, Object> mapPara) {
+        return dao.selectAllProducts(mapPara);
     }
 }

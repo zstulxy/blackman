@@ -2,6 +2,7 @@ package com.maiya.service;
 
 import com.maiya.bean.Products;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ProductsService {
@@ -18,4 +19,5 @@ public interface ProductsService {
     public int updateByPrimaryKey(Products record);
 
     public List<Products> selectByBrandType(Byte brandType);
+    public List<Object> selectAllProducts(HashMap<String, Object> mapPara);
 }

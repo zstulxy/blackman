@@ -38,7 +38,27 @@ public class ProductsController extends AuthModule {
                 : Integer.parseInt(request.getParameter("page_size"));
         String name = request.getParameter("name");
         String token = request.getParameter("token");
-        Byte brandType = Byte.parseByte(request.getParameter("type"));
+        Byte brand_type = Byte.parseByte(request.getParameter("type"));
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("name", name);
+        if (brand_type >= 0) {
+            parameters.put("brandType", brand_type);
+        }
+
+        Long userId = this.getUserId();
+        switch (this.getPrivilegeType()) {
+            case 1:
+            case 2:
+                break;
+            case 3:
+                if (userId > 0) {
+                    parameters.put("userId", userId);
+                }
+                break;
+            default:
+                break;
+        }
+
         boolean isAuth = this.isAuthSuccess(token);
         if (!isAuth) {
             errCodesIndex = ErrorCode.TOKEN_ERROR;
@@ -46,7 +66,7 @@ public class ProductsController extends AuthModule {
         }
 
         PageHelper.startPage(pageNo, pageSize);
-        List<Products> products = service.selectByBrandType(brandType);
+        List<Object> products = service.selectAllProducts(parameters);
         if (products.size() == 0) {
             errCodesIndex = ErrorCode.GET_PRODUCTS_LIST_ERROR;
             HashMap<String, Object> result_tmp = errorMsg.ErrorCodeMsg(errCodesIndex);
@@ -105,8 +125,8 @@ public class ProductsController extends AuthModule {
         logger.debug("userId: " + userId + ", userName: " + userName);
         logger.debug("data: " + data);
 
-        ProductTblCreate vendor_tbl = JSON.parseObject(data, ProductTblCreate.class);
-        int rc = service.insert(transformData(vendor_tbl));
+        ProductTblCreate productTbl = JSON.parseObject(data, ProductTblCreate.class);
+        int rc = service.insert(transformData(productTbl));
         if (rc == 0) {
             errCodesIndex = ErrorCode.INSERT_PRODUCT_BYID_ERROR;
         }
@@ -119,6 +139,10 @@ public class ProductsController extends AuthModule {
         result.setBrand(src.getBrand());
         result.setBrandType(src.getBrandType());
         result.setPrice(src.getPrice());
+        result.setCreateTime(src.getCreateTime());
+        result.setIcon(src.getIcon());
+        result.setUserId(src.getUserId());
+        result.setSales(src.getSales());
         return result;
     }
 
@@ -165,5 +189,4 @@ public class ProductsController extends AuthModule {
         HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
         return result;
     }
-
 }

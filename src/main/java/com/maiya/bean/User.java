@@ -7,9 +7,11 @@ public class User implements Serializable {
 
     private String name;
 
-    private String consultant;
+    private Byte sex;
 
-    private Long consultantId;
+    private String careers;
+
+    private Byte age;
 
     private String phoneNumber;
 
@@ -33,6 +35,8 @@ public class User implements Serializable {
 
     private Byte identity;
 
+    private Byte assess;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -51,20 +55,28 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getConsultant() {
-        return consultant;
+    public Byte getSex() {
+        return sex;
     }
 
-    public void setConsultant(String consultant) {
-        this.consultant = consultant;
+    public void setSex(Byte sex) {
+        this.sex = sex;
     }
 
-    public Long getConsultantId() {
-        return consultantId;
+    public String getCareers() {
+        return careers;
     }
 
-    public void setConsultantId(Long consultantId) {
-        this.consultantId = consultantId;
+    public void setCareers(String careers) {
+        this.careers = careers;
+    }
+
+    public Byte getAge() {
+        return age;
+    }
+
+    public void setAge(Byte age) {
+        this.age = age;
     }
 
     public String getPhoneNumber() {
@@ -155,6 +167,14 @@ public class User implements Serializable {
         this.identity = identity;
     }
 
+    public Byte getAssess() {
+        return assess;
+    }
+
+    public void setAssess(Byte assess) {
+        this.assess = assess;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -169,8 +189,9 @@ public class User implements Serializable {
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getConsultant() == null ? other.getConsultant() == null : this.getConsultant().equals(other.getConsultant()))
-            && (this.getConsultantId() == null ? other.getConsultantId() == null : this.getConsultantId().equals(other.getConsultantId()))
+            && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
+            && (this.getCareers() == null ? other.getCareers() == null : this.getCareers().equals(other.getCareers()))
+            && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()))
             && (this.getPhoneNumber() == null ? other.getPhoneNumber() == null : this.getPhoneNumber().equals(other.getPhoneNumber()))
             && (this.getVerification() == null ? other.getVerification() == null : this.getVerification().equals(other.getVerification()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
@@ -181,7 +202,8 @@ public class User implements Serializable {
             && (this.getPrivilegetype() == null ? other.getPrivilegetype() == null : this.getPrivilegetype().equals(other.getPrivilegetype()))
             && (this.getPoints() == null ? other.getPoints() == null : this.getPoints().equals(other.getPoints()))
             && (this.getCertificate() == null ? other.getCertificate() == null : this.getCertificate().equals(other.getCertificate()))
-            && (this.getIdentity() == null ? other.getIdentity() == null : this.getIdentity().equals(other.getIdentity()));
+            && (this.getIdentity() == null ? other.getIdentity() == null : this.getIdentity().equals(other.getIdentity()))
+            && (this.getAssess() == null ? other.getAssess() == null : this.getAssess().equals(other.getAssess()));
     }
 
     @Override
@@ -190,8 +212,9 @@ public class User implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getConsultant() == null) ? 0 : getConsultant().hashCode());
-        result = prime * result + ((getConsultantId() == null) ? 0 : getConsultantId().hashCode());
+        result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
+        result = prime * result + ((getCareers() == null) ? 0 : getCareers().hashCode());
+        result = prime * result + ((getAge() == null) ? 0 : getAge().hashCode());
         result = prime * result + ((getPhoneNumber() == null) ? 0 : getPhoneNumber().hashCode());
         result = prime * result + ((getVerification() == null) ? 0 : getVerification().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
@@ -203,6 +226,7 @@ public class User implements Serializable {
         result = prime * result + ((getPoints() == null) ? 0 : getPoints().hashCode());
         result = prime * result + ((getCertificate() == null) ? 0 : getCertificate().hashCode());
         result = prime * result + ((getIdentity() == null) ? 0 : getIdentity().hashCode());
+        result = prime * result + ((getAssess() == null) ? 0 : getAssess().hashCode());
         return result;
     }
 
@@ -214,8 +238,9 @@ public class User implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", consultant=").append(consultant);
-        sb.append(", consultantId=").append(consultantId);
+        sb.append(", sex=").append(sex);
+        sb.append(", careers=").append(careers);
+        sb.append(", age=").append(age);
         sb.append(", phoneNumber=").append(phoneNumber);
         sb.append(", verification=").append(verification);
         sb.append(", password=").append(password);
@@ -227,6 +252,7 @@ public class User implements Serializable {
         sb.append(", points=").append(points);
         sb.append(", certificate=").append(certificate);
         sb.append(", identity=").append(identity);
+        sb.append(", assess=").append(assess);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

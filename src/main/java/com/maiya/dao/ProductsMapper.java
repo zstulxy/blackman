@@ -2,6 +2,7 @@ package com.maiya.dao;
 
 import com.maiya.bean.Products;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ProductsMapper {
@@ -18,4 +19,5 @@ public interface ProductsMapper {
     int updateByPrimaryKey(Products record);
 
     List<Products> selectByBrandType(Byte brandType);
+    List<Object> selectAllProducts(HashMap<String, Object> mapPara);
 }

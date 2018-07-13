@@ -13,8 +13,9 @@
   <resultMap id="userResult" type="com.maiya.bean.User" >
     <id column="u_user_id" property="id" jdbcType="BIGINT" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="consultant" jdbcType="VARCHAR" property="consultant" />
-    <result column="consultant_id" jdbcType="BIGINT" property="consultantId" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="careers" jdbcType="VARCHAR" property="careers" />
+    <result column="age" jdbcType="TINYINT" property="age" />
     <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
     <result column="verification" jdbcType="VARCHAR" property="verification" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -26,6 +27,7 @@
     <result column="points" jdbcType="SMALLINT" property="points" />
     <result column="certificate" jdbcType="VARCHAR" property="certificate" />
     <result column="identity" jdbcType="TINYINT" property="identity" />
+    <result column="assess" jdbcType="TINYINT" property="assess" />
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -43,7 +45,9 @@
     a.token,
     a.last_visit,
     u.privilege,
-    u.privilegetype
+    u.privilegetype,
+    u.assess,
+    u.sex
     from auth_tbl as a , user_tbl as u
     where a.user_id = u.id
     and a.token = #{token,jdbcType=VARCHAR}

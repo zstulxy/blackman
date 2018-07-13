@@ -72,7 +72,10 @@ public class LoginController extends AuthModule {
         dataMap.put("privilege", userInfo.getPrivilege());
         dataMap.put("privilegetype", userInfo.getPrivilegetype());
         dataMap.put("phoneNumber",userInfo.getPhoneNumber());
-
+        dataMap.put("careers", userInfo.getCareers());
+        dataMap.put("sex", userInfo.getSex());
+        dataMap.put("age", userInfo.getAge());
+        dataMap.put("access", userInfo.getAssess());
         result.put("data", dataMap);
         return result;
     }
