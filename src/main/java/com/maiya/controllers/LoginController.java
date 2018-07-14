@@ -80,6 +80,8 @@ public class LoginController extends AuthModule {
         return result;
     }
 
+
+
     @RequestMapping(value="update",method=RequestMethod.POST)
     public @ResponseBody HashMap<String, Object> updateUser(@RequestBody String data, HttpServletRequest request) {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;

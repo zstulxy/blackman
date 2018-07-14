@@ -28,6 +28,7 @@
     <result column="certificate" jdbcType="VARCHAR" property="certificate" />
     <result column="identity" jdbcType="TINYINT" property="identity" />
     <result column="assess" jdbcType="TINYINT" property="assess" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -47,7 +48,10 @@
     u.privilege,
     u.privilegetype,
     u.assess,
-    u.sex
+    u.sex,
+    u.careers,
+    u.assess,
+    u.age
     from auth_tbl as a , user_tbl as u
     where a.user_id = u.id
     and a.token = #{token,jdbcType=VARCHAR}

@@ -37,6 +37,8 @@ public class User implements Serializable {
 
     private Byte assess;
 
+    private String idCard;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -175,6 +177,14 @@ public class User implements Serializable {
         this.assess = assess;
     }
 
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -203,7 +213,8 @@ public class User implements Serializable {
             && (this.getPoints() == null ? other.getPoints() == null : this.getPoints().equals(other.getPoints()))
             && (this.getCertificate() == null ? other.getCertificate() == null : this.getCertificate().equals(other.getCertificate()))
             && (this.getIdentity() == null ? other.getIdentity() == null : this.getIdentity().equals(other.getIdentity()))
-            && (this.getAssess() == null ? other.getAssess() == null : this.getAssess().equals(other.getAssess()));
+            && (this.getAssess() == null ? other.getAssess() == null : this.getAssess().equals(other.getAssess()))
+            && (this.getIdCard() == null ? other.getIdCard() == null : this.getIdCard().equals(other.getIdCard()));
     }
 
     @Override
@@ -227,6 +238,7 @@ public class User implements Serializable {
         result = prime * result + ((getCertificate() == null) ? 0 : getCertificate().hashCode());
         result = prime * result + ((getIdentity() == null) ? 0 : getIdentity().hashCode());
         result = prime * result + ((getAssess() == null) ? 0 : getAssess().hashCode());
+        result = prime * result + ((getIdCard() == null) ? 0 : getIdCard().hashCode());
         return result;
     }
 
@@ -253,6 +265,7 @@ public class User implements Serializable {
         sb.append(", certificate=").append(certificate);
         sb.append(", identity=").append(identity);
         sb.append(", assess=").append(assess);
+        sb.append(", idCard=").append(idCard);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -29,7 +29,7 @@ public class UserTblCreate {
      */
     private String password;
 
-    private Integer privilegetype;
+    private Byte privilegetype;
 
 
     /**
@@ -112,7 +112,7 @@ public class UserTblCreate {
      *
      * @mbggenerated
      */
-    public Integer getPrivilegetype() {
+    public Byte getPrivilegetype() {
         return privilegetype;
     }
 
@@ -124,7 +124,7 @@ public class UserTblCreate {
      *
      * @mbggenerated
      */
-    public void setPrivilegetype(Integer privilegetype) {
+    public void setPrivilegetype(Byte privilegetype) {
         this.privilegetype = privilegetype;
     }
 
