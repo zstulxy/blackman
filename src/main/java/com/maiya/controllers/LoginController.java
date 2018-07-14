@@ -1,5 +1,5 @@
 /**
- * 
+ * @author cx
  */
 /**
  * @author cx
@@ -11,8 +11,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
+import com.maiya.bean.AppUser;
 import com.maiya.bean.Auth;
 import com.maiya.bean.User;
+import com.maiya.bean.WebUser;
 import com.maiya.common.DataEncode;
 import com.maiya.common.ErrorCode;
 import com.maiya.common.ErrorMsg;
@@ -36,54 +38,138 @@ public class LoginController extends AuthModule {
     @Resource
     private UserService userService;
 
-    @RequestMapping(value="/value", method=RequestMethod.GET)
+    @RequestMapping(value = "/web_value", method = RequestMethod.GET)
     public @ResponseBody
-    HashMap<String, Object> getByUserNameAndPwd(HttpServletRequest request) {
+    HashMap<String, Object> getWebByUserNameAndPwd(HttpServletRequest request) {
         String name = request.getParameter("name");
         String passwd = request.getParameter("password");
 
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
-        User userInfo = userService.selectByPassword(name,passwd);
+        User userInfo = userService.selectByPassword(name, passwd);
         if (userInfo == null) {
             errCodesIndex = ErrorCode.LOGIN_SELECT_ERROR;
             return null;
         }
 
         HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
-        String info = name+passwd;
+        String info = name + passwd;
         String token = DataEncode.getSHA256StrJava(info);
         Auth auth = new Auth();
-        auth.setLoginId(name);
+        auth.setName(name);
         auth.setToken(token);
         auth.setUserId(userInfo.getId());
+        auth.setUser(userInfo);
+        auth.setAppUser(userInfo.getAppUser());
+        auth.setWebUser(userInfo.getWebUser());
+        if (userInfo.getAppUser() != null
+                && userInfo.getAppUser() != null
+                && userInfo.getAppUser().getId() > 0) {
+            auth.setAppUserId(userInfo.getAppUser().getId());
+        }
+
+        if (userInfo.getWebUser() != null
+                && userInfo.getWebUser() != null
+                && userInfo.getWebUser().getId() > 0) {
+            auth.setWebUserId(userInfo.getWebUser().getId());
+        }
+
         int rc = authService.insert(auth);
         if (rc != -1) {
             logger.info("rc: " + rc);
         }
 
-        HashMap<String,Object> dataMap = new HashMap<String,Object>();
+        HashMap<String, Object> dataMap = new HashMap<String, Object>();
         dataMap.put("id", userInfo.getId());
         dataMap.put("avatar", userInfo.getAvatar());
         dataMap.put("name", userInfo.getName());
         dataMap.put("password", passwd);
         dataMap.put("token", token);
-        dataMap.put("privilege", userInfo.getPrivilege());
-        dataMap.put("privilegetype", userInfo.getPrivilegetype());
-        dataMap.put("phoneNumber",userInfo.getPhoneNumber());
-        dataMap.put("careers", userInfo.getCareers());
+        dataMap.put("phoneNumber", userInfo.getPhoneNumber());
         dataMap.put("sex", userInfo.getSex());
         dataMap.put("age", userInfo.getAge());
-        dataMap.put("access", userInfo.getAssess());
+
+        if (userInfo.getWebUser() != null) {
+            WebUser webUser = userInfo.getWebUser();
+            dataMap.put("webUserId",webUser.getId());
+            dataMap.put("privilege",webUser.getPrivilege());
+            dataMap.put("privilegetype",webUser.getPrivilegetype());
+            dataMap.put("careers",webUser.getCareers());
+            dataMap.put("certificate",webUser.getCertificate());
+            dataMap.put("identity",webUser.getIdentity());
+            dataMap.put("assess",webUser.getAssess());
+        }
+        result.put("data", dataMap);
+        return result;
+    }
+
+    @RequestMapping(value = "/app_value", method = RequestMethod.GET)
+    public @ResponseBody
+    HashMap<String, Object> getAppByUserNameAndPwd(HttpServletRequest request) {
+        String name = request.getParameter("name");
+        String passwd = request.getParameter("password");
+
+        ErrorCode errCodesIndex = ErrorCode.SUCCESS;
+        ErrorMsg errorMsg = new ErrorMsg();
+
+        User userInfo = userService.selectByPassword(name, passwd);
+        if (userInfo == null) {
+            errCodesIndex = ErrorCode.LOGIN_SELECT_ERROR;
+            return null;
+        }
+
+        HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
+        String info = name + passwd;
+        String token = DataEncode.getSHA256StrJava(info);
+        Auth auth = new Auth();
+        auth.setName(name);
+        auth.setToken(token);
+        auth.setUserId(userInfo.getId());
+        auth.setUser(userInfo);
+        auth.setAppUser(userInfo.getAppUser());
+        auth.setWebUser(userInfo.getWebUser());
+        if (userInfo.getAppUser() != null
+                && userInfo.getAppUser() != null
+                && userInfo.getAppUser().getId() > 0) {
+            auth.setAppUserId(userInfo.getAppUser().getId());
+        }
+
+        if (userInfo.getWebUser() != null
+                && userInfo.getWebUser() != null
+                && userInfo.getWebUser().getId() > 0) {
+            auth.setWebUserId(userInfo.getWebUser().getId());
+        }
+
+        int rc = authService.insert(auth);
+        if (rc != -1) {
+            logger.info("rc: " + rc);
+        }
+
+        HashMap<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("id", userInfo.getId());
+        dataMap.put("avatar", userInfo.getAvatar());
+        dataMap.put("name", userInfo.getName());
+        dataMap.put("password", passwd);
+        dataMap.put("token", token);
+        dataMap.put("phoneNumber", userInfo.getPhoneNumber());
+        dataMap.put("sex", userInfo.getSex());
+        dataMap.put("age", userInfo.getAge());
+
+        if (userInfo.getAppUser() != null) {
+            AppUser appUser = userInfo.getAppUser();
+            dataMap.put("appUserId",appUser.getId());
+            dataMap.put("address",appUser.getAddress());
+            dataMap.put("points",appUser.getPoints());
+        }
         result.put("data", dataMap);
         return result;
     }
 
 
-
-    @RequestMapping(value="update",method=RequestMethod.POST)
-    public @ResponseBody HashMap<String, Object> updateUser(@RequestBody String data, HttpServletRequest request) {
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public @ResponseBody
+    HashMap<String, Object> updateUser(@RequestBody String data, HttpServletRequest request) {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
@@ -109,13 +195,13 @@ public class LoginController extends AuthModule {
     private User transformUpdateData(UserTblUpdate src) {
         User result = new User();
         byte privilegetType = src.getPrivilegetype().byteValue();
-        if (privilegetType > 0) {
-            result.setPrivilegetype(privilegetType);
-        }
-
-        if (src.getPrivilege() != null) {
-            result.setPrivilege(src.getPrivilege());
-        }
+//        if (privilegetType > 0) {
+//            result.setPrivilegetype(privilegetType);
+//        }
+//
+//        if (src.getPrivilege() != null) {
+//            result.setPrivilege(src.getPrivilege());
+//        }
 
         if (src.getId() > 0) {
             result.setId(src.getId());

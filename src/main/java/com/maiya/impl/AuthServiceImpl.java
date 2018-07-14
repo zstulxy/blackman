@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
 		return dao.selectByToken(token);
 	}
 
-//	public Auth selectAppUserByToken(String token) {
-//		return dao.selectAppUserByToken(token);
-//	}
+	public Auth selectAppUserByToken(String token) {
+		return dao.selectAppUserByToken(token);
+	}
 }

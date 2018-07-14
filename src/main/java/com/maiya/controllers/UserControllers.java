@@ -131,10 +131,10 @@ public class UserControllers  extends AuthModule {
     private User transformData(UserTblCreate src) {
         User result = new User();
         Byte privilegetType = src.getPrivilegetype();
-        if (privilegetType > 0) {
-            result.setPrivilegetype(privilegetType);
-            result.setPrivilege(PrivilegeType.getName(privilegetType));
-        }
+//        if (privilegetType > 0) {
+//            result.setPrivilegetype(privilegetType);
+//            result.setPrivilege(PrivilegeType.getName(privilegetType));
+//        }
 
         if (src.getName() != null) {
             result.setName(src.getName());

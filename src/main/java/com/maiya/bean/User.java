@@ -9,9 +9,11 @@ public class User implements Serializable {
 
     private Byte sex;
 
-    private String careers;
-
     private Byte age;
+
+    private String avatar;
+
+    private String email;
 
     private String phoneNumber;
 
@@ -21,23 +23,11 @@ public class User implements Serializable {
 
     private String backgroundIcon;
 
-    private String avatar;
-
-    private String email;
-
-    private String privilege;
-
-    private Byte privilegetype;
-
-    private Short points;
-
-    private String certificate;
-
-    private Byte identity;
-
-    private Byte assess;
-
     private String idCard;
+
+    private WebUser webUser;
+
+    private AppUser appUser;
 
     private static final long serialVersionUID = 1L;
 
@@ -65,20 +55,28 @@ public class User implements Serializable {
         this.sex = sex;
     }
 
-    public String getCareers() {
-        return careers;
-    }
-
-    public void setCareers(String careers) {
-        this.careers = careers;
-    }
-
     public Byte getAge() {
         return age;
     }
 
     public void setAge(Byte age) {
         this.age = age;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneNumber() {
@@ -113,70 +111,6 @@ public class User implements Serializable {
         this.backgroundIcon = backgroundIcon;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPrivilege() {
-        return privilege;
-    }
-
-    public void setPrivilege(String privilege) {
-        this.privilege = privilege;
-    }
-
-    public Byte getPrivilegetype() {
-        return privilegetype;
-    }
-
-    public void setPrivilegetype(Byte privilegetype) {
-        this.privilegetype = privilegetype;
-    }
-
-    public Short getPoints() {
-        return points;
-    }
-
-    public void setPoints(Short points) {
-        this.points = points;
-    }
-
-    public String getCertificate() {
-        return certificate;
-    }
-
-    public void setCertificate(String certificate) {
-        this.certificate = certificate;
-    }
-
-    public Byte getIdentity() {
-        return identity;
-    }
-
-    public void setIdentity(Byte identity) {
-        this.identity = identity;
-    }
-
-    public Byte getAssess() {
-        return assess;
-    }
-
-    public void setAssess(Byte assess) {
-        this.assess = assess;
-    }
-
     public String getIdCard() {
         return idCard;
     }
@@ -200,21 +134,16 @@ public class User implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
-            && (this.getCareers() == null ? other.getCareers() == null : this.getCareers().equals(other.getCareers()))
             && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()))
+            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
+            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
             && (this.getPhoneNumber() == null ? other.getPhoneNumber() == null : this.getPhoneNumber().equals(other.getPhoneNumber()))
             && (this.getVerification() == null ? other.getVerification() == null : this.getVerification().equals(other.getVerification()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getBackgroundIcon() == null ? other.getBackgroundIcon() == null : this.getBackgroundIcon().equals(other.getBackgroundIcon()))
-            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
-            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
-            && (this.getPrivilege() == null ? other.getPrivilege() == null : this.getPrivilege().equals(other.getPrivilege()))
-            && (this.getPrivilegetype() == null ? other.getPrivilegetype() == null : this.getPrivilegetype().equals(other.getPrivilegetype()))
-            && (this.getPoints() == null ? other.getPoints() == null : this.getPoints().equals(other.getPoints()))
-            && (this.getCertificate() == null ? other.getCertificate() == null : this.getCertificate().equals(other.getCertificate()))
-            && (this.getIdentity() == null ? other.getIdentity() == null : this.getIdentity().equals(other.getIdentity()))
-            && (this.getAssess() == null ? other.getAssess() == null : this.getAssess().equals(other.getAssess()))
-            && (this.getIdCard() == null ? other.getIdCard() == null : this.getIdCard().equals(other.getIdCard()));
+            && (this.getIdCard() == null ? other.getIdCard() == null : this.getIdCard().equals(other.getIdCard()))
+                && (this.getAppUser() == null ? other.getAppUser() == null : this.getAppUser().equals(other.getAppUser()))
+                && (this.getWebUser() == null ? other.getWebUser() == null : this.getWebUser().equals(other.getWebUser()));
     }
 
     @Override
@@ -224,21 +153,16 @@ public class User implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
-        result = prime * result + ((getCareers() == null) ? 0 : getCareers().hashCode());
         result = prime * result + ((getAge() == null) ? 0 : getAge().hashCode());
+        result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
+        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         result = prime * result + ((getPhoneNumber() == null) ? 0 : getPhoneNumber().hashCode());
         result = prime * result + ((getVerification() == null) ? 0 : getVerification().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getBackgroundIcon() == null) ? 0 : getBackgroundIcon().hashCode());
-        result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
-        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
-        result = prime * result + ((getPrivilege() == null) ? 0 : getPrivilege().hashCode());
-        result = prime * result + ((getPrivilegetype() == null) ? 0 : getPrivilegetype().hashCode());
-        result = prime * result + ((getPoints() == null) ? 0 : getPoints().hashCode());
-        result = prime * result + ((getCertificate() == null) ? 0 : getCertificate().hashCode());
-        result = prime * result + ((getIdentity() == null) ? 0 : getIdentity().hashCode());
-        result = prime * result + ((getAssess() == null) ? 0 : getAssess().hashCode());
         result = prime * result + ((getIdCard() == null) ? 0 : getIdCard().hashCode());
+        result = prime * result + ((getWebUser() == null) ? 0 : getWebUser().hashCode());
+        result = prime * result + ((getAppUser() == null) ? 0 : getAppUser().hashCode());
         return result;
     }
 
@@ -251,23 +175,32 @@ public class User implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", sex=").append(sex);
-        sb.append(", careers=").append(careers);
         sb.append(", age=").append(age);
+        sb.append(", avatar=").append(avatar);
+        sb.append(", email=").append(email);
         sb.append(", phoneNumber=").append(phoneNumber);
         sb.append(", verification=").append(verification);
         sb.append(", password=").append(password);
         sb.append(", backgroundIcon=").append(backgroundIcon);
-        sb.append(", avatar=").append(avatar);
-        sb.append(", email=").append(email);
-        sb.append(", privilege=").append(privilege);
-        sb.append(", privilegetype=").append(privilegetype);
-        sb.append(", points=").append(points);
-        sb.append(", certificate=").append(certificate);
-        sb.append(", identity=").append(identity);
-        sb.append(", assess=").append(assess);
         sb.append(", idCard=").append(idCard);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public WebUser getWebUser() {
+        return webUser;
+    }
+
+    public void setWebUser(WebUser webUser) {
+        this.webUser = webUser;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 }

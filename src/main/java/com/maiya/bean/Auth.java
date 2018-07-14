@@ -8,13 +8,21 @@ public class Auth implements Serializable {
 
     private Long userId;
 
-    private String loginId;
+    private Long webUserId;
+
+    private Long appUserId;
+
+    private String name;
 
     private String token;
 
     private Date lastVisit;
 
     private User user;
+
+    private AppUser appUser;
+
+    private WebUser webUser;
 
     private static final long serialVersionUID = 1L;
 
@@ -34,12 +42,28 @@ public class Auth implements Serializable {
         this.userId = userId;
     }
 
-    public String getLoginId() {
-        return loginId;
+    public Long getWebUserId() {
+        return webUserId;
     }
 
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
+    public void setWebUserId(Long webUserId) {
+        this.webUserId = webUserId;
+    }
+
+    public Long getAppUserId() {
+        return appUserId;
+    }
+
+    public void setAppUserId(Long appUserId) {
+        this.appUserId = appUserId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getToken() {
@@ -72,7 +96,9 @@ public class Auth implements Serializable {
         Auth other = (Auth) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getLoginId() == null ? other.getLoginId() == null : this.getLoginId().equals(other.getLoginId()))
+            && (this.getWebUserId() == null ? other.getWebUserId() == null : this.getWebUserId().equals(other.getWebUserId()))
+            && (this.getAppUserId() == null ? other.getAppUserId() == null : this.getAppUserId().equals(other.getAppUserId()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getToken() == null ? other.getToken() == null : this.getToken().equals(other.getToken()))
             && (this.getLastVisit() == null ? other.getLastVisit() == null : this.getLastVisit().equals(other.getLastVisit()));
     }
@@ -83,7 +109,9 @@ public class Auth implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getLoginId() == null) ? 0 : getLoginId().hashCode());
+        result = prime * result + ((getWebUserId() == null) ? 0 : getWebUserId().hashCode());
+        result = prime * result + ((getAppUserId() == null) ? 0 : getAppUserId().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getToken() == null) ? 0 : getToken().hashCode());
         result = prime * result + ((getLastVisit() == null) ? 0 : getLastVisit().hashCode());
         return result;
@@ -97,7 +125,9 @@ public class Auth implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
-        sb.append(", loginId=").append(loginId);
+        sb.append(", webUserId=").append(webUserId);
+        sb.append(", appUserId=").append(appUserId);
+        sb.append(", name=").append(name);
         sb.append(", token=").append(token);
         sb.append(", lastVisit=").append(lastVisit);
         sb.append(", serialVersionUID=").append(serialVersionUID);
@@ -111,5 +141,21 @@ public class Auth implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
+
+    public WebUser getWebUser() {
+        return webUser;
+    }
+
+    public void setWebUser(WebUser webUser) {
+        this.webUser = webUser;
     }
 }

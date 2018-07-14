@@ -16,4 +16,6 @@ public interface AuthMapper {
     int updateByPrimaryKey(Auth record);
 
     Auth selectByToken(String token);
+
+    Auth selectAppUserByToken(String token);
 }
