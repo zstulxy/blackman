@@ -79,7 +79,6 @@ public class ProductsController extends AuthModule {
         result.put("pageNo", pageNo);
         result.put("total", page.getTotal());
         result.put("filterName", name);
-//		logger.info(JSON.toJSONString(result));
         return result;
     }
 
@@ -141,8 +140,8 @@ public class ProductsController extends AuthModule {
         result.setPrice(src.getPrice());
         result.setCreateTime(src.getCreateTime());
         result.setIcon(src.getIcon());
-        result.setUserId(src.getUserId());
         result.setSales(src.getSales());
+        result.setDescribe(src.getDescribe());
         return result;
     }
 

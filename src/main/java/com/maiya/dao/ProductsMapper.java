@@ -16,6 +16,8 @@ public interface ProductsMapper {
 
     int updateByPrimaryKeySelective(Products record);
 
+    int updateByPrimaryKeyWithBLOBs(Products record);
+
     int updateByPrimaryKey(Products record);
 
     List<Products> selectByBrandType(Byte brandType);

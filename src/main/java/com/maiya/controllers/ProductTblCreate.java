@@ -3,7 +3,6 @@ package com.maiya.controllers;
 import java.util.Date;
 
 public class ProductTblCreate {
-    private Long userId;
 
     private String brand;
 
@@ -17,15 +16,9 @@ public class ProductTblCreate {
 
     private Long sales;
 
+    private String describe;
+
     private static final long serialVersionUID = 1L;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getBrand() {
         return brand;
@@ -79,7 +72,6 @@ public class ProductTblCreate {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getBrand() == null) ? 0 : getBrand().hashCode());
         result = prime * result + ((getBrandType() == null) ? 0 : getBrandType().hashCode());
         result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
@@ -95,7 +87,6 @@ public class ProductTblCreate {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", userId=").append(userId);
         sb.append(", brand=").append(brand);
         sb.append(", brandType=").append(brandType);
         sb.append(", price=").append(price);
@@ -105,5 +96,13 @@ public class ProductTblCreate {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 }
