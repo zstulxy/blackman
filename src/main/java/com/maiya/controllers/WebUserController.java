@@ -109,7 +109,7 @@ public class WebUserController extends AuthModule {
         return result;
     }
 
-    @RequestMapping(value = "web_create", method = RequestMethod.POST)
+    @RequestMapping(value = "create", method = RequestMethod.POST)
     public @ResponseBody
     HashMap<String, Object> inertWebUser(@RequestBody String data, HttpServletRequest request) {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;

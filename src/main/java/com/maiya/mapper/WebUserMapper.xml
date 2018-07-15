@@ -42,6 +42,7 @@
     from web_user_tbl
     LEFT JOIN user_tbl ON user_tbl.id = web_user_tbl.user_id
     where 1=1
+    AND web_user_tbl.user_id > 0
     and user_tbl.id = #{id,jdbcType=BIGINT}
   </select>
 
@@ -97,6 +98,7 @@
     <if test="userId != null">
       AND user_tbl.id = #{id,jdbcType=BIGINT}
     </if>
+    AND web_user_tbl.user_id > 0
     ORDER BY web_user_tbl.id
   </select>
 

@@ -36,6 +36,7 @@
     <!--LEFT JOIN app_user_tbl ON user_tbl.id = app_user_tbl.user_id-->
     LEFT JOIN app_user_tbl ON user_tbl.id = app_user_tbl.user_id
     where 1=1
+    AND app_user_tbl.user_id > 0
     and user_tbl.id = #{id,jdbcType=BIGINT}
   </select>
 
