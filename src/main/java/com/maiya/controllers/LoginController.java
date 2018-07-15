@@ -18,11 +18,11 @@ import com.maiya.bean.WebUser;
 import com.maiya.common.DataEncode;
 import com.maiya.common.ErrorCode;
 import com.maiya.common.ErrorMsg;
+import com.maiya.service.AppUserService;
 import com.maiya.service.AuthService;
-import com.maiya.service.UserService;
+import com.maiya.service.WebUserService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,7 +36,9 @@ public class LoginController extends AuthModule {
     @Resource
     private AuthService authService;
     @Resource
-    private UserService userService;
+    private AppUserService appUserService;
+    @Resource
+    private WebUserService webUserService;
 
     @RequestMapping(value = "/web_value", method = RequestMethod.GET)
     public @ResponseBody
@@ -47,7 +49,7 @@ public class LoginController extends AuthModule {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
-        User userInfo = userService.selectWebUserByPassword(name,passwd);
+        WebUser userInfo = webUserService.selectWebUserByPassword(name,passwd);
         if (userInfo == null) {
             errCodesIndex = ErrorCode.LOGIN_SELECT_ERROR;
             return null;
@@ -59,13 +61,13 @@ public class LoginController extends AuthModule {
         Auth auth = new Auth();
         auth.setName(name);
         auth.setToken(token);
-        auth.setUserId(userInfo.getId());
-        auth.setUser(userInfo);
-        auth.setWebUser(userInfo.getWebUser());
-        if (userInfo.getWebUser() != null
-                && userInfo.getWebUser().getId() != null
-                && userInfo.getWebUser().getId() > 0) {
-            auth.setWebUserId(userInfo.getAppUser().getId());
+        auth.setUserId(userInfo.getUser().getId());
+        auth.setWebUser(userInfo);
+
+        if (userInfo.getUser() != null
+                && userInfo.getUser().getId() != null
+                && userInfo.getUser().getId() > 0) {
+            auth.setWebUserId(userInfo.getId());
         }
 
         int rc = authService.insert(auth);
@@ -74,25 +76,26 @@ public class LoginController extends AuthModule {
         }
 
         HashMap<String, Object> dataMap = new HashMap<String, Object>();
-        dataMap.put("id", userInfo.getId());
-        dataMap.put("avatar", userInfo.getAvatar());
-        dataMap.put("name", userInfo.getName());
-        dataMap.put("password", passwd);
-        dataMap.put("token", token);
-        dataMap.put("phoneNumber", userInfo.getPhoneNumber());
-        dataMap.put("sex", userInfo.getSex());
-        dataMap.put("age", userInfo.getAge());
-
-        if (userInfo.getWebUser() != null) {
-            WebUser webUser = userInfo.getWebUser();
-            dataMap.put("webUserId",webUser.getId());
-            dataMap.put("privilege",webUser.getPrivilege());
-            dataMap.put("privilegetype",webUser.getPrivilegetype());
-            dataMap.put("careers",webUser.getCareers());
-            dataMap.put("certificate",webUser.getCertificate());
-            dataMap.put("identity",webUser.getIdentity());
-            dataMap.put("assess",webUser.getAssess());
+        User user = userInfo.getUser();
+        if (user != null) {
+            dataMap.put("userid", user.getId());
+            dataMap.put("avatar", user.getAvatar());
+            dataMap.put("name", user.getName());
+            dataMap.put("password", passwd);
+            dataMap.put("token", token);
+            dataMap.put("phoneNumber", user.getPhoneNumber());
+            dataMap.put("sex", user.getSex());
+            dataMap.put("age", user.getAge());
         }
+
+        dataMap.put("webUserId",userInfo.getId());
+        dataMap.put("privilege",userInfo.getPrivilege());
+        dataMap.put("privilegetype",userInfo.getPrivilegetype());
+        dataMap.put("careers",userInfo.getCareers());
+        dataMap.put("certificate",userInfo.getCertificate());
+        dataMap.put("identity",userInfo.getIdentity());
+        dataMap.put("assess",userInfo.getAssess());
+
         result.put("data", dataMap);
         return result;
     }
@@ -106,7 +109,7 @@ public class LoginController extends AuthModule {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
-        User userInfo = userService.selectAppUserByPassword(name, passwd);
+        AppUser userInfo = appUserService.selectAppUserByPassword(name, passwd);
         if (userInfo == null) {
             errCodesIndex = ErrorCode.LOGIN_SELECT_ERROR;
             return null;
@@ -118,13 +121,11 @@ public class LoginController extends AuthModule {
         Auth auth = new Auth();
         auth.setName(name);
         auth.setToken(token);
-        auth.setUserId(userInfo.getId());
-        auth.setUser(userInfo);
-        auth.setAppUser(userInfo.getAppUser());
-        if (userInfo.getAppUser() != null
-                && userInfo.getAppUser().getId() != null
-                && userInfo.getAppUser().getId() > 0) {
-            auth.setAppUserId(userInfo.getAppUser().getId());
+        auth.setUserId(userInfo.getUser().getId());
+        if (userInfo != null
+                && userInfo.getId() != null
+                && userInfo.getId() > 0) {
+            auth.setAppUserId(userInfo.getId());
         }
 
         int rc = authService.insert(auth);
@@ -133,21 +134,22 @@ public class LoginController extends AuthModule {
         }
 
         HashMap<String, Object> dataMap = new HashMap<String, Object>();
-        dataMap.put("id", userInfo.getId());
-        dataMap.put("avatar", userInfo.getAvatar());
-        dataMap.put("name", userInfo.getName());
-        dataMap.put("password", passwd);
-        dataMap.put("token", token);
-        dataMap.put("phoneNumber", userInfo.getPhoneNumber());
-        dataMap.put("sex", userInfo.getSex());
-        dataMap.put("age", userInfo.getAge());
-
-        if (userInfo.getAppUser() != null) {
-            AppUser appUser = userInfo.getAppUser();
-            dataMap.put("appUserId",appUser.getId());
-            dataMap.put("address",appUser.getAddress());
-            dataMap.put("points",appUser.getPoints());
+        User user = userInfo.getUser();
+        if (user != null) {
+            dataMap.put("userid", user.getId());
+            dataMap.put("avatar", user.getAvatar());
+            dataMap.put("name", user.getName());
+            dataMap.put("password", passwd);
+            dataMap.put("token", token);
+            dataMap.put("phoneNumber", user.getPhoneNumber());
+            dataMap.put("sex", user.getSex());
+            dataMap.put("age", user.getAge());
         }
+
+        dataMap.put("appUserId",userInfo.getId());
+        dataMap.put("address",userInfo.getAddress());
+        dataMap.put("points",userInfo.getPoints());
+
         result.put("data", dataMap);
         return result;
     }

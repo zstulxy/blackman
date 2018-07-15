@@ -11,6 +11,8 @@ public class AppUser implements Serializable {
 
     private Short points;
 
+    private User user;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -87,5 +89,13 @@ public class AppUser implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

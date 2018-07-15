@@ -25,10 +25,6 @@ public class User implements Serializable {
 
     private String idCard;
 
-    private WebUser webUser;
-
-    private AppUser appUser;
-
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -141,9 +137,7 @@ public class User implements Serializable {
             && (this.getVerification() == null ? other.getVerification() == null : this.getVerification().equals(other.getVerification()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getBackgroundIcon() == null ? other.getBackgroundIcon() == null : this.getBackgroundIcon().equals(other.getBackgroundIcon()))
-            && (this.getIdCard() == null ? other.getIdCard() == null : this.getIdCard().equals(other.getIdCard()))
-                && (this.getAppUser() == null ? other.getAppUser() == null : this.getAppUser().equals(other.getAppUser()))
-                && (this.getWebUser() == null ? other.getWebUser() == null : this.getWebUser().equals(other.getWebUser()));
+            && (this.getIdCard() == null ? other.getIdCard() == null : this.getIdCard().equals(other.getIdCard()));
     }
 
     @Override
@@ -161,8 +155,6 @@ public class User implements Serializable {
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getBackgroundIcon() == null) ? 0 : getBackgroundIcon().hashCode());
         result = prime * result + ((getIdCard() == null) ? 0 : getIdCard().hashCode());
-        result = prime * result + ((getWebUser() == null) ? 0 : getWebUser().hashCode());
-        result = prime * result + ((getAppUser() == null) ? 0 : getAppUser().hashCode());
         return result;
     }
 
@@ -186,21 +178,5 @@ public class User implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
-    }
-
-    public WebUser getWebUser() {
-        return webUser;
-    }
-
-    public void setWebUser(WebUser webUser) {
-        this.webUser = webUser;
-    }
-
-    public AppUser getAppUser() {
-        return appUser;
-    }
-
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
     }
 }
