@@ -19,6 +19,8 @@ public class WebUser implements Serializable {
 
     private Byte assess;
 
+    private String hosptial;
+
     private User user;
 
     private static final long serialVersionUID = 1L;
@@ -87,6 +89,14 @@ public class WebUser implements Serializable {
         this.assess = assess;
     }
 
+    public String getHosptial() {
+        return hosptial;
+    }
+
+    public void setHosptial(String hosptial) {
+        this.hosptial = hosptial;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -106,7 +116,8 @@ public class WebUser implements Serializable {
             && (this.getPrivilegetype() == null ? other.getPrivilegetype() == null : this.getPrivilegetype().equals(other.getPrivilegetype()))
             && (this.getCertificate() == null ? other.getCertificate() == null : this.getCertificate().equals(other.getCertificate()))
             && (this.getIdentity() == null ? other.getIdentity() == null : this.getIdentity().equals(other.getIdentity()))
-            && (this.getAssess() == null ? other.getAssess() == null : this.getAssess().equals(other.getAssess()));
+            && (this.getAssess() == null ? other.getAssess() == null : this.getAssess().equals(other.getAssess()))
+            && (this.getHosptial() == null ? other.getHosptial() == null : this.getHosptial().equals(other.getHosptial()));
     }
 
     @Override
@@ -121,6 +132,7 @@ public class WebUser implements Serializable {
         result = prime * result + ((getCertificate() == null) ? 0 : getCertificate().hashCode());
         result = prime * result + ((getIdentity() == null) ? 0 : getIdentity().hashCode());
         result = prime * result + ((getAssess() == null) ? 0 : getAssess().hashCode());
+        result = prime * result + ((getHosptial() == null) ? 0 : getHosptial().hashCode());
         return result;
     }
 
@@ -138,6 +150,7 @@ public class WebUser implements Serializable {
         sb.append(", certificate=").append(certificate);
         sb.append(", identity=").append(identity);
         sb.append(", assess=").append(assess);
+        sb.append(", hosptial=").append(hosptial);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

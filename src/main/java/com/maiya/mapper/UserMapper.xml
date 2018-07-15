@@ -13,31 +13,13 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="background_icon" jdbcType="VARCHAR" property="backgroundIcon" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
-    <collection property="appUser" resultMap="appUserResult" />
-    <collection property="webUser" resultMap="webUserResult" />
-  </resultMap>
-
-  <resultMap id="appUserResult" type="com.maiya.bean.AppUser" >
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="points" jdbcType="SMALLINT" property="points" />
-  </resultMap>
-
-  <resultMap id="webUserResult" type="com.maiya.bean.WebUser" >
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="careers" jdbcType="VARCHAR" property="careers" />
-    <result column="privilege" jdbcType="VARCHAR" property="privilege" />
-    <result column="privilegetype" jdbcType="TINYINT" property="privilegetype" />
-    <result column="certificate" jdbcType="VARCHAR" property="certificate" />
-    <result column="identity" jdbcType="BIT" property="identity" />
-    <result column="assess" jdbcType="TINYINT" property="assess" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
   </resultMap>
 
   <sql id="Base_Column_List">
     id, name, sex, age, avatar, email, phone_number, verification, password, background_icon, 
-    id_card
+    id_card, province, city
   </sql>
 
 
@@ -138,11 +120,13 @@
     insert into user_tbl (name, sex, age, 
       avatar, email, phone_number, 
       verification, password, background_icon, 
-      id_card)
+      id_card, province, city
+      )
     values (#{name,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, #{age,jdbcType=TINYINT}, 
       #{avatar,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
       #{verification,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{backgroundIcon,jdbcType=VARCHAR}, 
-      #{idCard,jdbcType=VARCHAR})
+      #{idCard,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.maiya.bean.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -180,11 +164,11 @@
       <if test="idCard != null">
         id_card,
       </if>
-      <if test="webUser != null">
-        webUser,
+      <if test="province != null">
+        province,
       </if>
-      <if test="appUser != null">
-        appUser,
+      <if test="city != null">
+        city,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -218,15 +202,14 @@
       <if test="idCard != null">
         #{idCard,jdbcType=VARCHAR},
       </if>
-      <if test="webUser != null">
-        #{webUser,jdbcType=com.maiya.bean.WebUser}
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
       </if>
-      <if test="appUser != null">
-        #{appUser,jdbcType=com.maiya.bean.AppUser
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-
   <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.User">
     update user_tbl
     <set>
@@ -260,11 +243,11 @@
       <if test="idCard != null">
         id_card = #{idCard,jdbcType=VARCHAR},
       </if>
-      <if test="webUser != null">
-        #{webUser,jdbcType=com.maiya.bean.WebUser},
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
       </if>
-      <if test="appUser != null">
-        #{appUser,jdbcType=com.maiya.bean.AppUser},
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -273,15 +256,17 @@
   <update id="updateByPrimaryKey" parameterType="com.maiya.bean.User">
     update user_tbl
     set name = #{name,jdbcType=VARCHAR},
-    sex = #{sex,jdbcType=TINYINT},
-    age = #{age,jdbcType=TINYINT},
-    avatar = #{avatar,jdbcType=VARCHAR},
-    email = #{email,jdbcType=VARCHAR},
-    phone_number = #{phoneNumber,jdbcType=VARCHAR},
-    verification = #{verification,jdbcType=VARCHAR},
-    password = #{password,jdbcType=VARCHAR},
-    background_icon = #{backgroundIcon,jdbcType=VARCHAR},
-    id_card = #{idCard,jdbcType=VARCHAR}
+      sex = #{sex,jdbcType=TINYINT},
+      age = #{age,jdbcType=TINYINT},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      verification = #{verification,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      background_icon = #{backgroundIcon,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 

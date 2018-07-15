@@ -228,6 +228,14 @@ public class WebUserController extends AuthModule {
             user.setIdCard(src.getIdCard());
         }
 
+        if (src.getProvince() != null) {
+            user.setProvince(src.getProvince());
+        }
+
+        if (src.getCity() != null) {
+            user.setCity(src.getCity());
+        }
+
         if (src.getCareers() != null) {
             webUser.setCareers(src.getCareers());
         }
@@ -246,6 +254,10 @@ public class WebUserController extends AuthModule {
 
         if (src.getAssess() != null) {
             webUser.setAssess(src.getAssess());
+        }
+
+        if (src.getHosptial() != null) {
+            webUser.setHosptial(src.getHosptial());
         }
 
         if (user != null) {
@@ -300,6 +312,14 @@ public class WebUserController extends AuthModule {
             result.setIdCard(src.getIdCard());
         }
 
+        if (src.getProvince() != null) {
+            result.setProvince(src.getProvince());
+        }
+
+        if (src.getCity() != null) {
+            result.setCity(src.getCity());
+        }
+
         if (src.getCareers() != null) {
             webUser.setCareers(src.getCareers());
         }
@@ -318,6 +338,10 @@ public class WebUserController extends AuthModule {
 
         if (src.getAssess() != null) {
             webUser.setAssess(src.getAssess());
+        }
+
+        if (src.getHosptial() != null) {
+            webUser.setHosptial(src.getHosptial());
         }
 
         if (result != null) {

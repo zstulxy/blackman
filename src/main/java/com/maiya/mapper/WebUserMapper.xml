@@ -10,6 +10,7 @@
     <result column="certificate" jdbcType="VARCHAR" property="certificate" />
     <result column="identity" jdbcType="BIT" property="identity" />
     <result column="assess" jdbcType="TINYINT" property="assess" />
+    <result column="hosptial" jdbcType="VARCHAR" property="hosptial" />
     <collection property="user" resultMap="userResult" />
   </resultMap>
 
@@ -25,10 +26,12 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="background_icon" jdbcType="VARCHAR" property="backgroundIcon" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, user_id, careers, privilege, privilegetype, certificate, identity, assess
+    id, user_id, careers, privilege, privilegetype, certificate, identity, assess, hosptial
   </sql>
 
   <select id="selectLastUserId" resultMap="BaseResultMap">
@@ -148,10 +151,10 @@
     </selectKey>
     insert into web_user_tbl (user_id, careers, privilege, 
       privilegetype, certificate, identity, 
-      assess)
+      assess, hosptial)
     values (#{userId,jdbcType=BIGINT}, #{careers,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}, 
       #{privilegetype,jdbcType=TINYINT}, #{certificate,jdbcType=VARCHAR}, #{identity,jdbcType=BIT}, 
-      #{assess,jdbcType=TINYINT})
+      #{assess,jdbcType=TINYINT}, #{hosptial,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.maiya.bean.WebUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -180,6 +183,9 @@
       <if test="assess != null">
         assess,
       </if>
+      <if test="hosptial != null">
+        hosptial,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -202,6 +208,9 @@
       </if>
       <if test="assess != null">
         #{assess,jdbcType=TINYINT},
+      </if>
+      <if test="hosptial != null">
+        #{hosptial,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -229,6 +238,9 @@
       <if test="assess != null">
         assess = #{assess,jdbcType=TINYINT},
       </if>
+      <if test="hosptial != null">
+        hosptial = #{hosptial,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -240,7 +252,8 @@
       privilegetype = #{privilegetype,jdbcType=TINYINT},
       certificate = #{certificate,jdbcType=VARCHAR},
       identity = #{identity,jdbcType=BIT},
-      assess = #{assess,jdbcType=TINYINT}
+      assess = #{assess,jdbcType=TINYINT},
+      hosptial = #{hosptial,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -4,7 +4,6 @@ import com.maiya.bean.User;
 import com.maiya.bean.WebUser;
 import com.maiya.dao.UserMapper;
 import com.maiya.dao.WebUserMapper;
-import com.maiya.service.UserService;
 import com.maiya.service.WebUserService;
 import org.springframework.stereotype.Service;
 
