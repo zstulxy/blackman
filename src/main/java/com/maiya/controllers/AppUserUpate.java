@@ -1,6 +1,6 @@
 package com.maiya.controllers;
 
-public class AppUserCreate extends UserCreate {
+public class AppUserUpate extends UserUpdate {
 
     private String address;
 

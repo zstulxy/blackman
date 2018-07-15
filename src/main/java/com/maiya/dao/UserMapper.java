@@ -33,4 +33,14 @@ public interface UserMapper {
     User selectVerifyCodeByPhone(String phone_number);
 
     int updateByPhone(User record);
+
+    Long selectLastUserId();
+
+    User selectWebUserByUserId(Long id);
+
+    User selectAppUserByUserId(Long id);
+
+    int deleteWebByPrimaryKey(Long id);
+
+    int deleteAppByPrimaryKey(Long id);
 }

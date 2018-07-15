@@ -54,4 +54,14 @@ public interface UserService {
     public User selectVerifyCodeByPhone(String phone_number);
 
     public int updateByPhone(User record);
+
+    public Long selectLastUserId();
+
+    public User selectWebUserByUserId(Long id);
+
+    public User selectAppUserByUserId(Long id);
+
+    public int deleteWebByPrimaryKey(Long id);
+
+    public int deleteAppByPrimaryKey(Long id);
 }

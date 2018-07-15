@@ -39,6 +39,33 @@
     id, name, sex, age, avatar, email, phone_number, verification, password, background_icon, 
     id_card
   </sql>
+
+  <select id="selectLastUserId" resultMap="BaseResultMap">
+    select max(id) from user_tbl
+  </select>
+
+  <select id="selectWebUserByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+      user_tbl.*,
+      web_user_tbl.*
+    from user_tbl
+    <!--LEFT JOIN app_user_tbl ON user_tbl.id = app_user_tbl.user_id-->
+      LEFT JOIN web_user_tbl ON user_tbl.id = web_user_tbl.user_id
+    where 1=1
+      and user_tbl.id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAppUserByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    user_tbl.*,
+    app_user_tbl.*
+    from user_tbl
+    <!--LEFT JOIN app_user_tbl ON user_tbl.id = app_user_tbl.user_id-->
+    LEFT JOIN app_user_tbl ON user_tbl.id = app_user_tbl.user_id
+    where 1=1
+    and user_tbl.id = #{id,jdbcType=BIGINT}
+  </select>
+
   <select id="selectWebUserByPassword" resultMap="BaseResultMap" >
     <!--
       WARNING - @mbggenerated
@@ -221,6 +248,21 @@
     delete from user_tbl
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
+  <delete id="deleteWebByPrimaryKey" parameterType="java.lang.Long">
+    delete user_tbl, web_user_tbl from user_tbl, web_user_tbl
+    where
+      web_user_tbl.user_id = user_tbl.id
+      AND user_tbl.id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteAppByPrimaryKey" parameterType="java.lang.Long">
+    delete user_tbl, app_user_tbl from user_tbl, app_user_tbl
+    where
+      app_user_tbl.user_id = user_tbl.id
+      AND user_tbl.id = #{id,jdbcType=BIGINT}
+  </delete>
+
   <insert id="insert" parameterType="com.maiya.bean.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
@@ -270,6 +312,12 @@
       <if test="idCard != null">
         id_card,
       </if>
+      <if test="webUser != null">
+        webUser,
+      </if>
+      <if test="appUser != null">
+        appUser,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -301,6 +349,12 @@
       </if>
       <if test="idCard != null">
         #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="webUser != null">
+        #{webUser,jdbcType=com.maiya.bean.WebUser}
+      </if>
+      <if test="appUser != null">
+        #{appUser,jdbcType=com.maiya.bean.AppUser
       </if>
     </trim>
   </insert>
@@ -337,21 +391,68 @@
       <if test="idCard != null">
         id_card = #{idCard,jdbcType=VARCHAR},
       </if>
+      <if test="webUser != null">
+        #{webUser,jdbcType=com.maiya.bean.WebUser},
+      </if>
+      <if test="appUser != null">
+        #{appUser,jdbcType=com.maiya.bean.AppUser},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.maiya.bean.User">
     update user_tbl
     set name = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=TINYINT},
-      age = #{age,jdbcType=TINYINT},
-      avatar = #{avatar,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      phone_number = #{phoneNumber,jdbcType=VARCHAR},
-      verification = #{verification,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      background_icon = #{backgroundIcon,jdbcType=VARCHAR},
-      id_card = #{idCard,jdbcType=VARCHAR}
+    sex = #{sex,jdbcType=TINYINT},
+    age = #{age,jdbcType=TINYINT},
+    avatar = #{avatar,jdbcType=VARCHAR},
+    email = #{email,jdbcType=VARCHAR},
+    phone_number = #{phoneNumber,jdbcType=VARCHAR},
+    verification = #{verification,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR},
+    background_icon = #{backgroundIcon,jdbcType=VARCHAR},
+    id_card = #{idCard,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateWebByPrimaryKey" parameterType="com.maiya.bean.User">
+    update user_tbl as u, web_user_tbl as w
+    set u.name = #{name,jdbcType=VARCHAR},
+    u.sex = #{sex,jdbcType=TINYINT},
+    u.age = #{age,jdbcType=TINYINT},
+    u.avatar = #{avatar,jdbcType=VARCHAR},
+    u.email = #{email,jdbcType=VARCHAR},
+    u.phone_number = #{phoneNumber,jdbcType=VARCHAR},
+    u.verification = #{verification,jdbcType=VARCHAR},
+    u.password = #{password,jdbcType=VARCHAR},
+    u.background_icon = #{backgroundIcon,jdbcType=VARCHAR},
+    u.id_card = #{idCard,jdbcType=VARCHAR},
+    w.careers = #{careers,jdbcType=VARCHAR},
+    w.privilege = #{privilege,jdbcType=VARCHAR},
+    w.privilegetype = #{privilegetype,jdbcType=TINYINT},
+    w.certificate = #{certificate,jdbcType=VARCHAR},
+    w.identity = #{identity,jdbcType=BIT},
+    w.assess = #{assess,jdbcType=TINYINT}
+    where u.id = w.user_id
+    AND id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateAppByPrimaryKey" parameterType="com.maiya.bean.User">
+    update user_tbl as u, app_user_tbl as a
+    set u.name = #{name,jdbcType=VARCHAR},
+    u.sex = #{sex,jdbcType=TINYINT},
+    u.age = #{age,jdbcType=TINYINT},
+    u.avatar = #{avatar,jdbcType=VARCHAR},
+    u.email = #{email,jdbcType=VARCHAR},
+    u.phone_number = #{phoneNumber,jdbcType=VARCHAR},
+    u.verification = #{verification,jdbcType=VARCHAR},
+    u.password = #{password,jdbcType=VARCHAR},
+    u.background_icon = #{backgroundIcon,jdbcType=VARCHAR},
+    u.id_card = #{idCard,jdbcType=VARCHAR},
+    a.address = #{address,jdbcType=VARCHAR},
+    a.points = #{points,jdbcType=SMALLINT}
+    where u.id = a.user_id
+    AND u.id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -85,5 +85,25 @@ public class UserServiceImpl implements UserService {
     public int updateByPhone(User record) {
         return userDao.updateByPhone(record);
     }
+
+    public Long selectLastUserId() {
+        return userDao.selectLastUserId();
+    }
+
+    public User selectWebUserByUserId(Long id) {
+        return userDao.selectWebUserByUserId(id);
+    }
+
+    public User selectAppUserByUserId(Long id) {
+        return userDao.selectAppUserByUserId(id);
+    }
+
+    public int deleteWebByPrimaryKey(Long id) {
+        return userDao.deleteWebByPrimaryKey(id);
+    }
+
+    public int deleteAppByPrimaryKey(Long id) {
+        return userDao.deleteAppByPrimaryKey(id);
+    }
 }
 
