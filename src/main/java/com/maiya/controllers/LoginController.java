@@ -47,7 +47,7 @@ public class LoginController extends AuthModule {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
-        User userInfo = userService.selectByPassword(name, passwd);
+        User userInfo = userService.selectWebUserByPassword(name,passwd);
         if (userInfo == null) {
             errCodesIndex = ErrorCode.LOGIN_SELECT_ERROR;
             return null;
@@ -61,18 +61,11 @@ public class LoginController extends AuthModule {
         auth.setToken(token);
         auth.setUserId(userInfo.getId());
         auth.setUser(userInfo);
-        auth.setAppUser(userInfo.getAppUser());
         auth.setWebUser(userInfo.getWebUser());
-        if (userInfo.getAppUser() != null
-                && userInfo.getAppUser() != null
-                && userInfo.getAppUser().getId() > 0) {
-            auth.setAppUserId(userInfo.getAppUser().getId());
-        }
-
         if (userInfo.getWebUser() != null
-                && userInfo.getWebUser() != null
+                && userInfo.getWebUser().getId() != null
                 && userInfo.getWebUser().getId() > 0) {
-            auth.setWebUserId(userInfo.getWebUser().getId());
+            auth.setWebUserId(userInfo.getAppUser().getId());
         }
 
         int rc = authService.insert(auth);
@@ -113,7 +106,7 @@ public class LoginController extends AuthModule {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
-        User userInfo = userService.selectByPassword(name, passwd);
+        User userInfo = userService.selectAppUserByPassword(name, passwd);
         if (userInfo == null) {
             errCodesIndex = ErrorCode.LOGIN_SELECT_ERROR;
             return null;
@@ -128,17 +121,10 @@ public class LoginController extends AuthModule {
         auth.setUserId(userInfo.getId());
         auth.setUser(userInfo);
         auth.setAppUser(userInfo.getAppUser());
-        auth.setWebUser(userInfo.getWebUser());
         if (userInfo.getAppUser() != null
-                && userInfo.getAppUser() != null
+                && userInfo.getAppUser().getId() != null
                 && userInfo.getAppUser().getId() > 0) {
             auth.setAppUserId(userInfo.getAppUser().getId());
-        }
-
-        if (userInfo.getWebUser() != null
-                && userInfo.getWebUser() != null
-                && userInfo.getWebUser().getId() > 0) {
-            auth.setWebUserId(userInfo.getWebUser().getId());
         }
 
         int rc = authService.insert(auth);
@@ -165,65 +151,4 @@ public class LoginController extends AuthModule {
         result.put("data", dataMap);
         return result;
     }
-
-
-    @RequestMapping(value = "update", method = RequestMethod.POST)
-    public @ResponseBody
-    HashMap<String, Object> updateUser(@RequestBody String data, HttpServletRequest request) {
-        ErrorCode errCodesIndex = ErrorCode.SUCCESS;
-        ErrorMsg errorMsg = new ErrorMsg();
-
-        String token = request.getParameter("token");
-        boolean isAuth = this.isAuthSuccess(token);
-        if (!isAuth) {
-            errCodesIndex = ErrorCode.TOKEN_ERROR;
-            return errorMsg.ErrorCodeMsg(errCodesIndex);
-        }
-        logger.debug("*************data: " + data);
-
-        UserTblUpdate user_tbl = JSON.parseObject(data, UserTblUpdate.class);
-        logger.debug(JSON.toJSON(user_tbl));
-        int rc = userService.updateByPrimaryKeySelective(transformUpdateData(user_tbl));
-        if (rc == 0) {
-            errCodesIndex = ErrorCode.UPDATE_USER_ERROR;
-        }
-        HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
-        return result;
-    }
-
-
-    private User transformUpdateData(UserTblUpdate src) {
-        User result = new User();
-        byte privilegetType = src.getPrivilegetype().byteValue();
-//        if (privilegetType > 0) {
-//            result.setPrivilegetype(privilegetType);
-//        }
-//
-//        if (src.getPrivilege() != null) {
-//            result.setPrivilege(src.getPrivilege());
-//        }
-
-        if (src.getId() > 0) {
-            result.setId(src.getId());
-        }
-
-        if (src.getAvatar() != null) {
-            result.setAvatar(src.getAvatar());
-        }
-
-        if (src.getName() != null) {
-            result.setName(src.getName());
-        }
-
-        if (src.getPassword() != null) {
-            result.setPassword(src.getPassword());
-        }
-
-        if (src.getPhoneNumber() != null) {
-            result.setPhoneNumber(src.getPhoneNumber());
-        }
-
-        return result;
-    }
-
 }

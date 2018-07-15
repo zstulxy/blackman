@@ -29,14 +29,14 @@
   </resultMap>
 
   <resultMap id="appUserResult" type="com.maiya.bean.AppUser" >
-    <id column="app_id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="points" jdbcType="SMALLINT" property="points" />
   </resultMap>
 
   <resultMap id="webUserResult" type="com.maiya.bean.WebUser" >
-    <id column="web_id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="careers" jdbcType="VARCHAR" property="careers" />
     <result column="privilege" jdbcType="VARCHAR" property="privilege" />

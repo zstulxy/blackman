@@ -18,11 +18,17 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    User selectByPassword(String login_id, String password);
+    User selectWebUserByPassword(String login_id, String password);
 
-    List<Object> selectAll(String name);
+    User selectAppUserByPassword(String login_id, String password);
 
-    List<Object> selectAllByUserId(HashMap<String, Object> parameters);
+    List<Object> selectAppAllUser(String name);
+
+    List<Object> selectAllAppByUserId(HashMap<String, Object> parameters);
+
+    List<Object> selectWebAllUser(String name);
+
+    List<Object> selectAllWebByUserId(HashMap<String, Object> parameters);
 
     User selectVerifyCodeByPhone(String phone_number);
 

@@ -39,11 +39,17 @@ public interface UserService {
      */
     public int updateByPrimaryKeySelective(User record);
 
-    public User selectByPassword(@Param("name") String name, @Param("password") String password);
+    public User selectWebUserByPassword(@Param("name") String name, @Param("password") String password);
 
-	public List<Object> selectAll(String name);
+    public User selectAppUserByPassword(@Param("name") String name, @Param("password") String password);
 
-    public List<Object> selectAllByUserId(HashMap<String, Object> parameters);
+	public List<Object> selectAppAllUser(String name);
+
+    public List<Object> selectAllAppByUserId(HashMap<String, Object> parameters);
+
+    public List<Object> selectWebAllUser(String name);
+
+    public List<Object> selectAllWebByUserId(HashMap<String, Object> parameters);
 
     public User selectVerifyCodeByPhone(String phone_number);
 

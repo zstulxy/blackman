@@ -27,9 +27,53 @@ public class UserControllers  extends AuthModule {
     @Resource
     private UserService service;
 
-    @RequestMapping(value="list",method= RequestMethod.GET)
+    @RequestMapping(value="app_list",method= RequestMethod.GET)
     public @ResponseBody
-    HashMap<String, Object> selectAllUser(HttpServletRequest request) {
+    HashMap<String, Object> selectAllAppUser(HttpServletRequest request) {
+        ErrorCode errCodesIndex = ErrorCode.SUCCESS;
+        ErrorMsg errorMsg = new ErrorMsg();
+
+        Integer pageNo = (request.getParameter("page_no") == null) ? 1
+                : Integer.parseInt(request.getParameter("page_no"));
+        Integer pageSize = (request.getParameter("page_size") == null) ? 10
+                : Integer.parseInt(request.getParameter("page_size"));
+        String userName = request.getParameter("name");
+        String token = request.getParameter("token");
+        if (userName == null || token == null) {
+            errCodesIndex = ErrorCode.TOKEN_ERROR;
+            return errorMsg.ErrorCodeMsg(errCodesIndex);
+        }
+
+        logger.debug("pageNo: " + pageNo + ", pageSIZE: " + pageSize + "userName: " + userName + "token: " + token);
+        boolean isAuth = this.isAuthSuccess(token);
+        if (!isAuth) {
+            errCodesIndex = ErrorCode.TOKEN_ERROR;
+            return errorMsg.ErrorCodeMsg(errCodesIndex);
+        }
+
+        PageHelper.startPage(pageNo, pageSize);
+        List<Object> userInfos = service.selectAppAllUser(userName);
+        if (userInfos.size() == 0) {
+            errCodesIndex = ErrorCode.SELECT_USER_ERROR;
+            HashMap<String, Object> result_tmp = errorMsg.ErrorCodeMsg(errCodesIndex);
+            return result_tmp;
+        }
+        PageInfo page = new PageInfo(userInfos);
+
+        HashMap<String, Object> data_result = new HashMap<String, Object>();
+        data_result.put("total", page.getTotal());
+        data_result.put("pageNo", pageNo);
+        data_result.put("filterName", userName);
+        data_result.put("type", "app");
+        data_result.put("list", userInfos);
+        HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
+        result.put("data", data_result);
+        return result;
+    }
+
+    @RequestMapping(value="web_list",method= RequestMethod.GET)
+    public @ResponseBody
+    HashMap<String, Object> selectAllWebUser(HttpServletRequest request) {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
@@ -47,7 +91,7 @@ public class UserControllers  extends AuthModule {
         }
 
         PageHelper.startPage(pageNo, pageSize);
-        List<Object> userInfos = service.selectAll(userName);
+        List<Object> userInfos = service.selectWebAllUser(userName);
         Long userId = this.getUserId();
         switch (this.getPrivilegeType()) {
             case 1:
@@ -57,7 +101,7 @@ public class UserControllers  extends AuthModule {
                 HashMap<String, Object> paras = new HashMap<String, Object>();
                 paras.put("name",userName);
                 paras.put("userId",userId);
-                userInfos = service.selectAllByUserId(paras);
+                userInfos = service.selectAllWebByUserId(paras);
             }
             break;
             default:
@@ -74,6 +118,7 @@ public class UserControllers  extends AuthModule {
         data_result.put("total", page.getTotal());
         data_result.put("pageNo", pageNo);
         data_result.put("filterName", userName);
+        data_result.put("type", "web");
         data_result.put("list", userInfos);
         HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
         result.put("data", data_result);
@@ -117,7 +162,7 @@ public class UserControllers  extends AuthModule {
         }
         logger.debug("*************data: " + data);
 
-        UserTblCreate user_tbl = JSON.parseObject(data, UserTblCreate.class);
+        UserCreate user_tbl = JSON.parseObject(data, UserCreate.class);
         logger.debug(JSON.toJSON(user_tbl));
         int rc = service.insertSelective(transformData(user_tbl));
         if (rc == 0) {
@@ -128,9 +173,9 @@ public class UserControllers  extends AuthModule {
         return result;
     }
 
-    private User transformData(UserTblCreate src) {
+    private User transformData(UserCreate src) {
         User result = new User();
-        Byte privilegetType = src.getPrivilegetype();
+//        Byte privilegetType = src.getPrivilegetype();
 //        if (privilegetType > 0) {
 //            result.setPrivilegetype(privilegetType);
 //            result.setPrivilege(PrivilegeType.getName(privilegetType));
@@ -187,7 +232,7 @@ public class UserControllers  extends AuthModule {
         }
         logger.debug("***************data: " + data);
 
-        UserTblDel del_info = JSON.parseObject(data, UserTblDel.class);
+        UserDel del_info = JSON.parseObject(data, UserDel.class);
         int rc = service.deleteByPrimaryKey(del_info.getUserId());
         if (rc == 0) {
             errCodesIndex = ErrorCode.DELETE_USER_ERROR;
