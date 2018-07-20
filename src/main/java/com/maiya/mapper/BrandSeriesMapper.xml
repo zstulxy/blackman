@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maiya.dao.BrandSeriesMapper">
+  <resultMap id="BaseResultMap" type="com.maiya.bean.BrandSeries">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="classify_id" jdbcType="BIGINT" property="classifyId" />
+    <result column="brand_name_cn" jdbcType="VARCHAR" property="brandNameCn" />
+    <result column="brand_name_en" jdbcType="VARCHAR" property="brandNameEn" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.maiya.bean.BrandSeriesWithBLOBs">
+    <result column="desc" jdbcType="LONGVARCHAR" property="desc" />
+    <result column="story" jdbcType="LONGVARCHAR" property="story" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, classify_id, brand_name_cn, brand_name_en, logo, status, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    desc, story
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from brand_series_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from brand_series_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.maiya.bean.BrandSeriesWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into brand_series_tbl (classify_id, brand_name_cn, brand_name_en, 
+      logo, status, create_time, 
+      desc, story)
+    values (#{classifyId,jdbcType=BIGINT}, #{brandNameCn,jdbcType=VARCHAR}, #{brandNameEn,jdbcType=VARCHAR}, 
+      #{logo,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{createTime,jdbcType=DATE}, 
+      #{desc,jdbcType=LONGVARCHAR}, #{story,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maiya.bean.BrandSeriesWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into brand_series_tbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classifyId != null">
+        classify_id,
+      </if>
+      <if test="brandNameCn != null">
+        brand_name_cn,
+      </if>
+      <if test="brandNameEn != null">
+        brand_name_en,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="desc != null">
+        desc,
+      </if>
+      <if test="story != null">
+        story,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classifyId != null">
+        #{classifyId,jdbcType=BIGINT},
+      </if>
+      <if test="brandNameCn != null">
+        #{brandNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="brandNameEn != null">
+        #{brandNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="story != null">
+        #{story,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.BrandSeriesWithBLOBs">
+    update brand_series_tbl
+    <set>
+      <if test="classifyId != null">
+        classify_id = #{classifyId,jdbcType=BIGINT},
+      </if>
+      <if test="brandNameCn != null">
+        brand_name_cn = #{brandNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="brandNameEn != null">
+        brand_name_en = #{brandNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="desc != null">
+        desc = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="story != null">
+        story = #{story,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.maiya.bean.BrandSeriesWithBLOBs">
+    update brand_series_tbl
+    set classify_id = #{classifyId,jdbcType=BIGINT},
+      brand_name_cn = #{brandNameCn,jdbcType=VARCHAR},
+      brand_name_en = #{brandNameEn,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=DATE},
+      desc = #{desc,jdbcType=LONGVARCHAR},
+      story = #{story,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maiya.bean.BrandSeries">
+    update brand_series_tbl
+    set classify_id = #{classifyId,jdbcType=BIGINT},
+      brand_name_cn = #{brandNameCn,jdbcType=VARCHAR},
+      brand_name_en = #{brandNameEn,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
