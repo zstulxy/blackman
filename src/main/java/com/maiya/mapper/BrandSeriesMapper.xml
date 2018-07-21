@@ -27,7 +27,7 @@
     <result column="p_name" jdbcType="VARCHAR" property="pName" />
     <result column="p_brand_id" jdbcType="BIGINT" property="pBrandId" />
     <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
-    <result column="p_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="p_create_time" jdbcType="TIMESTAMP" property="pCreateTime" />
     <association  property="productSku" resultMap="productSkuResult" />
     <association  property="packProductInfo" resultMap="packProductInfoResult" />
   </resultMap>
@@ -51,6 +51,13 @@
     <result column="ps_create_time" jdbcType="TIMESTAMP" property="psCreateTime" />
   </resultMap>
 
+  <resultMap id="ProductBaseResult" type="com.maiya.bean.ProductManagment">
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="classify_name" jdbcType="VARCHAR" property="classifyName" />
+    <result column="brand_name_cn" jdbcType="VARCHAR" property="brandNameCn" />
+    <result column="total_quantity" jdbcType="BIGINT" property="totalQuantity" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     brand_id, b_classify_id, brand_name_cn, brand_name_en, logo, b_status, b_create_time
   </sql>
@@ -58,17 +65,30 @@
     descr, story
   </sql>
 
-  <select id="selectByBrand" parameterType="hashmap" resultMap="ResultMapWithBLOBs">
+  <select id="selectByBrand" parameterType="hashmap" resultMap="ProductBaseResult">
   select
     product_tbl.p_name as product_name,
     classify_tbl.cl_name as classify_name,
-    brand_series_tbl.brand_name_cn as brand_name_cn
+    brand_series_tbl.brand_name_cn as brand_name_cn,
+    sum(product_sku_tbl.ps_quantity) as total_quantity
+    <!--brand_series_tbl.*, classify_tbl.*, product_tbl.*,product_sku_tbl.*-->
   from brand_series_tbl
     left join classify_tbl on  brand_series_tbl.b_classify_id = classify_tbl.classify_id
     left join product_tbl on product_tbl.p_brand_id = brand_series_tbl.brand_id
     left join product_sku_tbl on product_sku_tbl.ps_product_id = product_tbl.p_id
   where 1=1
-    GROUP BY classify_tbl.cl_name,  product_tbl.p_name, brand_series_tbl.brand_name_cn
+    AND brand_series_tbl.b_status = 1
+    <if test="brand_name_cn != null and brand_name_cn != ''">
+      AND brand_series_tbl.brand_name_cn like CONCAT('%',#{brandNameCn,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="brand_name_en != null and brand_name_en != ''">
+      AND brand_series_tbl.brand_name_en like CONCAT('%',#{brandNameEn,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="cl_name != null and cl_name != ''">
+      AND classify_tbl.cl_name like CONCAT('%',#{clName,jdbcType=VARCHAR},'%')
+    </if>
+    <!--GROUP BY classify_tbl.cl_name,  product_tbl.p_name, brand_series_tbl.brand_name_cn-->
+    GROUP BY brand_series_tbl.brand_id, product_tbl.p_id,classify_tbl.classify_id,product_sku_tbl.ps_id
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">

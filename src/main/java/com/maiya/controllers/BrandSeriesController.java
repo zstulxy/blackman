@@ -2,6 +2,7 @@ package com.maiya.controllers;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.maiya.bean.BrandSeries;
 import com.maiya.common.ErrorCode;
 import com.maiya.common.ErrorMsg;
 import com.maiya.service.BrandSeriesService;
@@ -49,7 +50,7 @@ public class BrandSeriesController extends AuthModule{
         HashMap<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("brand_name_cn", brand_name_cn);
         parameters.put("brand_name_en", brand_name_en);
-        parameters.put("classify_name", classify_name);
+        parameters.put("cl_name", classify_name);
         List<Object> products = service.selectByBrand(parameters);
         if (products.size() == 0) {
             errCodesIndex = ErrorCode.SELECT_USER_ERROR;
@@ -69,4 +70,5 @@ public class BrandSeriesController extends AuthModule{
 
         return result;
     }
+
 }
