@@ -2,6 +2,7 @@ package com.maiya.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Sets implements Serializable {
     private Long setsId;
@@ -11,6 +12,8 @@ public class Sets implements Serializable {
     private Date setsCreateTime;
 
     private Long setsProductId;
+
+    private List<Product> products;
 
     private static final long serialVersionUID = 1L;
 
@@ -88,5 +91,13 @@ public class Sets implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

@@ -70,12 +70,13 @@
     product_tbl.p_name as product_name,
     classify_tbl.cl_name as classify_name,
     brand_series_tbl.brand_name_cn as brand_name_cn,
-    sum(product_sku_tbl.ps_quantity) as total_quantity
+    sum(pack_product_info_tbl.ppi_quantity) as total_quantity
     <!--brand_series_tbl.*, classify_tbl.*, product_tbl.*,product_sku_tbl.*-->
   from brand_series_tbl
     left join classify_tbl on  brand_series_tbl.b_classify_id = classify_tbl.classify_id
     left join product_tbl on product_tbl.p_brand_id = brand_series_tbl.brand_id
     left join product_sku_tbl on product_sku_tbl.ps_product_id = product_tbl.p_id
+    left join pack_product_info_tbl on pack_product_info_tbl.ppi_sku_id = product_sku_tbl.ps_id
   where 1=1
     AND brand_series_tbl.b_status = 1
     <if test="brand_name_cn != null and brand_name_cn != ''">

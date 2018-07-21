@@ -6,10 +6,63 @@
     <result column="sets_name" jdbcType="VARCHAR" property="setsName" />
     <result column="sets_create_time" jdbcType="TIMESTAMP" property="setsCreateTime" />
     <result column="sets_product_id" jdbcType="BIGINT" property="setsProductId" />
+    <collection property="products" resultMap="productResult" />
   </resultMap>
   <sql id="Base_Column_List">
     sets_id, sets_name, sets_create_time, sets_product_id
   </sql>
+
+  <resultMap id="productResult" type="com.maiya.bean.Product">
+    <id column="p_id" jdbcType="BIGINT" property="pId" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="p_brand_id" jdbcType="BIGINT" property="pBrandId" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="p_create_time" jdbcType="TIMESTAMP" property="pCreateTime" />
+    <association  property="productSku" resultMap="productSkuResult" />
+    <association  property="packProductInfo" resultMap="packProductInfoResult" />
+  </resultMap>
+
+  <resultMap id="packProductInfoResult" type="com.maiya.bean.PackProductInfo">
+    <id column="ppi_id" jdbcType="BIGINT" property="ppiId" />
+    <result column="ppi_pack_id" jdbcType="BIGINT" property="ppiPackId" />
+    <result column="ppi_sku_id" jdbcType="BIGINT" property="ppiSkuId" />
+    <result column="ppi_quantity" jdbcType="BIGINT" property="ppiQuantity" />
+    <result column="ppi_price" jdbcType="DECIMAL" property="ppiPrice" />
+    <result column="ppi_create_time" jdbcType="TIMESTAMP" property="ppiCreateTime" />
+  </resultMap>
+
+  <resultMap id="productSkuResult" type="com.maiya.bean.ProductSku">
+    <id column="ps_id" jdbcType="BIGINT" property="psId" />
+    <result column="ps_product_id" jdbcType="BIGINT" property="psProductId" />
+    <result column="ps_quantity" jdbcType="BIGINT" property="psQuantity" />
+    <result column="ps_price" jdbcType="DECIMAL" property="psPrice" />
+    <result column="ps_status" jdbcType="BIT" property="psStatus" />
+    <result column="product_code" jdbcType="BIGINT" property="productCode" />
+    <result column="ps_create_time" jdbcType="TIMESTAMP" property="psCreateTime" />
+  </resultMap>
+
+  <resultMap id="setsResult" type="com.maiya.bean.SetsResult">
+    <result column="sets_name" jdbcType="VARCHAR" property="setsName" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="total_quantity" jdbcType="BIGINT" property="totalQuantity" />
+  </resultMap>
+
+  <select id="selectAllSets" parameterType="hashmap" resultMap="setsResult">
+    select
+      sets_tbl.sets_name as sets_name,
+      product_tbl.p_name as product_name,
+      (pack_product_info_tbl.ppi_quantity) as total_quantity
+    from sets_tbl
+      left join product_tbl on sets_tbl.sets_product_id = product_tbl.p_id
+      left join product_sku_tbl on product_sku_tbl.ps_product_id = product_tbl.p_id
+      left join pack_product_info_tbl on pack_product_info_tbl.ppi_sku_id = product_sku_tbl.ps_id
+    where 1=1
+    <if test="sets_name != null and sets_name != ''">
+      AND sets_tbl.sets_name like CONCAT('%',#{setsName,jdbcType=VARCHAR},'%')
+    </if>
+    GROUP BY product_tbl.p_id,product_sku_tbl.ps_id,sets_tbl.sets_id,pack_product_info_tbl.ppi_id
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
