@@ -24,6 +24,7 @@ public class BrandSeriesController extends AuthModule{
     @Resource
     private BrandSeriesService service;
 
+    //商品管理接口
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public @ResponseBody
     HashMap<String, Object> selectAllProducts(HttpServletRequest request) {
@@ -71,4 +72,52 @@ public class BrandSeriesController extends AuthModule{
         return result;
     }
 
+    //库存接口
+    @RequestMapping(value = "inventory", method = RequestMethod.GET)
+    public @ResponseBody
+    HashMap<String, Object> selectInventory(HttpServletRequest request) {
+        ErrorCode errCodesIndex = ErrorCode.SUCCESS;
+        ErrorMsg errorMsg = new ErrorMsg();
+
+        Integer pageNo = (request.getParameter("page_no") == null) ? 1
+                : Integer.parseInt(request.getParameter("page_no"));
+        Integer pageSize = (request.getParameter("page_size") == null) ? 10
+                : Integer.parseInt(request.getParameter("page_size"));
+        String brand_name_cn = request.getParameter("brand_name_cn");
+        String brand_name_en = request.getParameter("brand_name_en");
+        String classify_name = request.getParameter("classify_name");
+        String product_name = request.getParameter("product_name");
+        String token = request.getParameter("token");
+
+        logger.debug("pageNo: " + pageNo + ", pageSIZE: " + pageSize + "userName: " + brand_name_cn + "token: " + token);
+        boolean isAuth = this.isAuthSuccess(token);
+        if (!isAuth) {
+            errCodesIndex = ErrorCode.TOKEN_ERROR;
+            return errorMsg.ErrorCodeMsg(errCodesIndex);
+        }
+
+        PageHelper.startPage(pageNo, pageSize);
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("brand_name_cn", brand_name_cn);
+        parameters.put("brand_name_en", brand_name_en);
+        parameters.put("cl_name", classify_name);
+        parameters.put("p_name",product_name);
+        List<Object> products = service.selectInventory(parameters);
+        if (products.size() == 0) {
+            errCodesIndex = ErrorCode.SELECT_USER_ERROR;
+            HashMap<String, Object> result_tmp = errorMsg.ErrorCodeMsg(errCodesIndex);
+            return result_tmp;
+        }
+        PageInfo page = new PageInfo(products);
+
+        HashMap<String, Object> data_result = new HashMap<String, Object>();
+        data_result.put("total", page.getTotal());
+        data_result.put("pageNo", pageNo);
+        data_result.put("filterName", brand_name_cn);
+        data_result.put("type", "web");
+        data_result.put("list", products);
+        HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
+        result.put("data", data_result);
+        return result;
+    }
 }

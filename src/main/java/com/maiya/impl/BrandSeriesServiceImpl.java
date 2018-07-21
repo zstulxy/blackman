@@ -46,4 +46,8 @@ public class BrandSeriesServiceImpl implements BrandSeriesService {
     public List<Object> selectByBrand(HashMap<String, Object> parameters) {
         return dao.selectByBrand(parameters);
     }
+
+    public List<Object> selectInventory(HashMap<String, Object> parameters) {
+        return dao.selectInventory(parameters);
+    }
 }

@@ -23,4 +23,5 @@ public interface BrandSeriesService {
 
     List<Object> selectByBrand(HashMap<String, Object> parameters);
 
+    List<Object> selectInventory(HashMap<String, Object> parameters);
 }

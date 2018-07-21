@@ -22,4 +22,6 @@ public interface BrandSeriesMapper {
     int updateByPrimaryKey(BrandSeries record);
 
     List<Object> selectByBrand(HashMap<String, Object> parameters);
+
+    List<Object> selectInventory(HashMap<String, Object> parameters);
 }
