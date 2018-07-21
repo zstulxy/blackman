@@ -4,60 +4,60 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ProductSku implements Serializable {
-    private Long id;
+    private Long psId;
 
-    private Long productId;
+    private Long psProductId;
 
-    private Long quantity;
+    private Long psQuantity;
 
-    private Long price;
+    private Long psPrice;
 
-    private Boolean status;
+    private Boolean psStatus;
 
     private Long productCode;
 
-    private Date createTime;
+    private Date psCreateTime;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
+    public Long getPsId() {
+        return psId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPsId(Long psId) {
+        this.psId = psId;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getPsProductId() {
+        return psProductId;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setPsProductId(Long psProductId) {
+        this.psProductId = psProductId;
     }
 
-    public Long getQuantity() {
-        return quantity;
+    public Long getPsQuantity() {
+        return psQuantity;
     }
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
+    public void setPsQuantity(Long psQuantity) {
+        this.psQuantity = psQuantity;
     }
 
-    public Long getPrice() {
-        return price;
+    public Long getPsPrice() {
+        return psPrice;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setPsPrice(Long psPrice) {
+        this.psPrice = psPrice;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getPsStatus() {
+        return psStatus;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setPsStatus(Boolean psStatus) {
+        this.psStatus = psStatus;
     }
 
     public Long getProductCode() {
@@ -68,12 +68,12 @@ public class ProductSku implements Serializable {
         this.productCode = productCode;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getPsCreateTime() {
+        return psCreateTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setPsCreateTime(Date psCreateTime) {
+        this.psCreateTime = psCreateTime;
     }
 
     @Override
@@ -88,26 +88,26 @@ public class ProductSku implements Serializable {
             return false;
         }
         ProductSku other = (ProductSku) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getProductId() == null ? other.getProductId() == null : this.getProductId().equals(other.getProductId()))
-            && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
-            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+        return (this.getPsId() == null ? other.getPsId() == null : this.getPsId().equals(other.getPsId()))
+            && (this.getPsProductId() == null ? other.getPsProductId() == null : this.getPsProductId().equals(other.getPsProductId()))
+            && (this.getPsQuantity() == null ? other.getPsQuantity() == null : this.getPsQuantity().equals(other.getPsQuantity()))
+            && (this.getPsPrice() == null ? other.getPsPrice() == null : this.getPsPrice().equals(other.getPsPrice()))
+            && (this.getPsStatus() == null ? other.getPsStatus() == null : this.getPsStatus().equals(other.getPsStatus()))
             && (this.getProductCode() == null ? other.getProductCode() == null : this.getProductCode().equals(other.getProductCode()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+            && (this.getPsCreateTime() == null ? other.getPsCreateTime() == null : this.getPsCreateTime().equals(other.getPsCreateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getProductId() == null) ? 0 : getProductId().hashCode());
-        result = prime * result + ((getQuantity() == null) ? 0 : getQuantity().hashCode());
-        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getPsId() == null) ? 0 : getPsId().hashCode());
+        result = prime * result + ((getPsProductId() == null) ? 0 : getPsProductId().hashCode());
+        result = prime * result + ((getPsQuantity() == null) ? 0 : getPsQuantity().hashCode());
+        result = prime * result + ((getPsPrice() == null) ? 0 : getPsPrice().hashCode());
+        result = prime * result + ((getPsStatus() == null) ? 0 : getPsStatus().hashCode());
         result = prime * result + ((getProductCode() == null) ? 0 : getProductCode().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getPsCreateTime() == null) ? 0 : getPsCreateTime().hashCode());
         return result;
     }
 
@@ -117,13 +117,13 @@ public class ProductSku implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", productId=").append(productId);
-        sb.append(", quantity=").append(quantity);
-        sb.append(", price=").append(price);
-        sb.append(", status=").append(status);
+        sb.append(", psId=").append(psId);
+        sb.append(", psProductId=").append(psProductId);
+        sb.append(", psQuantity=").append(psQuantity);
+        sb.append(", psPrice=").append(psPrice);
+        sb.append(", psStatus=").append(psStatus);
         sb.append(", productCode=").append(productCode);
-        sb.append(", createTime=").append(createTime);
+        sb.append(", psCreateTime=").append(psCreateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

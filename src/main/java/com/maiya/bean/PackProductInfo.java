@@ -4,66 +4,66 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class PackProductInfo implements Serializable {
-    private Long id;
+    private Long ppiId;
 
-    private Long packId;
+    private Long ppiPackId;
 
-    private Long skuId;
+    private Long ppiSkuId;
 
-    private Long quantity;
+    private Long ppiQuantity;
 
-    private Long price;
+    private Long ppiPrice;
 
-    private Date createTime;
+    private Date ppiCreateTime;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
+    public Long getPpiId() {
+        return ppiId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPpiId(Long ppiId) {
+        this.ppiId = ppiId;
     }
 
-    public Long getPackId() {
-        return packId;
+    public Long getPpiPackId() {
+        return ppiPackId;
     }
 
-    public void setPackId(Long packId) {
-        this.packId = packId;
+    public void setPpiPackId(Long ppiPackId) {
+        this.ppiPackId = ppiPackId;
     }
 
-    public Long getSkuId() {
-        return skuId;
+    public Long getPpiSkuId() {
+        return ppiSkuId;
     }
 
-    public void setSkuId(Long skuId) {
-        this.skuId = skuId;
+    public void setPpiSkuId(Long ppiSkuId) {
+        this.ppiSkuId = ppiSkuId;
     }
 
-    public Long getQuantity() {
-        return quantity;
+    public Long getPpiQuantity() {
+        return ppiQuantity;
     }
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
+    public void setPpiQuantity(Long ppiQuantity) {
+        this.ppiQuantity = ppiQuantity;
     }
 
-    public Long getPrice() {
-        return price;
+    public Long getPpiPrice() {
+        return ppiPrice;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setPpiPrice(Long ppiPrice) {
+        this.ppiPrice = ppiPrice;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getPpiCreateTime() {
+        return ppiCreateTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setPpiCreateTime(Date ppiCreateTime) {
+        this.ppiCreateTime = ppiCreateTime;
     }
 
     @Override
@@ -78,24 +78,24 @@ public class PackProductInfo implements Serializable {
             return false;
         }
         PackProductInfo other = (PackProductInfo) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getPackId() == null ? other.getPackId() == null : this.getPackId().equals(other.getPackId()))
-            && (this.getSkuId() == null ? other.getSkuId() == null : this.getSkuId().equals(other.getSkuId()))
-            && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
-            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+        return (this.getPpiId() == null ? other.getPpiId() == null : this.getPpiId().equals(other.getPpiId()))
+            && (this.getPpiPackId() == null ? other.getPpiPackId() == null : this.getPpiPackId().equals(other.getPpiPackId()))
+            && (this.getPpiSkuId() == null ? other.getPpiSkuId() == null : this.getPpiSkuId().equals(other.getPpiSkuId()))
+            && (this.getPpiQuantity() == null ? other.getPpiQuantity() == null : this.getPpiQuantity().equals(other.getPpiQuantity()))
+            && (this.getPpiPrice() == null ? other.getPpiPrice() == null : this.getPpiPrice().equals(other.getPpiPrice()))
+            && (this.getPpiCreateTime() == null ? other.getPpiCreateTime() == null : this.getPpiCreateTime().equals(other.getPpiCreateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getPackId() == null) ? 0 : getPackId().hashCode());
-        result = prime * result + ((getSkuId() == null) ? 0 : getSkuId().hashCode());
-        result = prime * result + ((getQuantity() == null) ? 0 : getQuantity().hashCode());
-        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getPpiId() == null) ? 0 : getPpiId().hashCode());
+        result = prime * result + ((getPpiPackId() == null) ? 0 : getPpiPackId().hashCode());
+        result = prime * result + ((getPpiSkuId() == null) ? 0 : getPpiSkuId().hashCode());
+        result = prime * result + ((getPpiQuantity() == null) ? 0 : getPpiQuantity().hashCode());
+        result = prime * result + ((getPpiPrice() == null) ? 0 : getPpiPrice().hashCode());
+        result = prime * result + ((getPpiCreateTime() == null) ? 0 : getPpiCreateTime().hashCode());
         return result;
     }
 
@@ -105,12 +105,12 @@ public class PackProductInfo implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", packId=").append(packId);
-        sb.append(", skuId=").append(skuId);
-        sb.append(", quantity=").append(quantity);
-        sb.append(", price=").append(price);
-        sb.append(", createTime=").append(createTime);
+        sb.append(", ppiId=").append(ppiId);
+        sb.append(", ppiPackId=").append(ppiPackId);
+        sb.append(", ppiSkuId=").append(ppiSkuId);
+        sb.append(", ppiQuantity=").append(ppiQuantity);
+        sb.append(", ppiPrice=").append(ppiPrice);
+        sb.append(", ppiCreateTime=").append(ppiCreateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

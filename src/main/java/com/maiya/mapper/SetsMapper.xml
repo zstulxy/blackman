@@ -2,212 +2,81 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.maiya.dao.SetsMapper">
   <resultMap id="BaseResultMap" type="com.maiya.bean.Sets">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="toothpaste" jdbcType="VARCHAR" property="toothpaste" />
-    <result column="toothpaste_id" jdbcType="BIGINT" property="toothpasteId" />
-    <result column="toothbrush" jdbcType="VARCHAR" property="toothbrush" />
-    <result column="toothbrush_id" jdbcType="BIGINT" property="toothbrushId" />
-    <result column="mouthwash" jdbcType="VARCHAR" property="mouthwash" />
-    <result column="mouthwash_id" jdbcType="BIGINT" property="mouthwashId" />
-    <result column="dentalfloss" jdbcType="VARCHAR" property="dentalfloss" />
-    <result column="dentalfloss_id" jdbcType="BIGINT" property="dentalflossId" />
-    <result column="sales" jdbcType="BIGINT" property="sales" />
-    <collection property="appUser" resultMap="appUserResult" />
+    <id column="sets_id" jdbcType="BIGINT" property="setsId" />
+    <result column="sets_name" jdbcType="VARCHAR" property="setsName" />
+    <result column="sets_create_time" jdbcType="TIMESTAMP" property="setsCreateTime" />
+    <result column="sets_product_id" jdbcType="BIGINT" property="setsProductId" />
   </resultMap>
-
-  <resultMap id="appUserResult" type="com.maiya.bean.AppUser" >
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="points" jdbcType="SMALLINT" property="points" />
-    <collection property="user" resultMap="userResult" />
-  </resultMap>
-
-  <resultMap id="userResult" type="com.maiya.bean.User">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="sex" jdbcType="TINYINT" property="sex" />
-    <result column="age" jdbcType="TINYINT" property="age" />
-    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
-    <result column="verification" jdbcType="VARCHAR" property="verification" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="background_icon" jdbcType="VARCHAR" property="backgroundIcon" />
-    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
-  </resultMap>
-
   <sql id="Base_Column_List">
-    id, user_id, name, toothpaste, toothpaste_id, toothbrush, toothbrush_id, mouthwash, 
-    mouthwash_id, dentalfloss, dentalfloss_id, sales
+    sets_id, sets_name, sets_create_time, sets_product_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sets_tbl
-    where id = #{id,jdbcType=BIGINT}
+    where sets_id = #{setsId,jdbcType=BIGINT}
   </select>
-
-  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from sets_tbl
-    LEFT JOIN app_user_tbl ON sets_tbl.user_id = app_user_tbl.user_id
-    <!--LEFT JOIN user_tbl ON user_tbl.id = app_user_tbl.user_id-->
-    where 1=1
-    AND app_user_tbl.user_id > 0
-    AND sets_tbl.user_id = #{userId,jdbcType=BIGINT}
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sets_tbl
-    where id = #{id,jdbcType=BIGINT}
+    where sets_id = #{setsId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.maiya.bean.Sets">
-    insert into sets_tbl (id, user_id, name, 
-      toothpaste, toothpaste_id, toothbrush, 
-      toothbrush_id, mouthwash, mouthwash_id, 
-      dentalfloss, dentalfloss_id, sales
-      )
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{toothpaste,jdbcType=VARCHAR}, #{toothpasteId,jdbcType=BIGINT}, #{toothbrush,jdbcType=VARCHAR}, 
-      #{toothbrushId,jdbcType=BIGINT}, #{mouthwash,jdbcType=VARCHAR}, #{mouthwashId,jdbcType=BIGINT}, 
-      #{dentalfloss,jdbcType=VARCHAR}, #{dentalflossId,jdbcType=BIGINT}, #{sales,jdbcType=BIGINT}
-      )
+    insert into sets_tbl (sets_id, sets_name, sets_create_time, 
+      sets_product_id)
+    values (#{setsId,jdbcType=BIGINT}, #{setsName,jdbcType=VARCHAR}, #{setsCreateTime,jdbcType=TIMESTAMP}, 
+      #{setsProductId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.maiya.bean.Sets">
     insert into sets_tbl
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="setsId != null">
+        sets_id,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="setsName != null">
+        sets_name,
       </if>
-      <if test="name != null">
-        name,
+      <if test="setsCreateTime != null">
+        sets_create_time,
       </if>
-      <if test="toothpaste != null">
-        toothpaste,
-      </if>
-      <if test="toothpasteId != null">
-        toothpaste_id,
-      </if>
-      <if test="toothbrush != null">
-        toothbrush,
-      </if>
-      <if test="toothbrushId != null">
-        toothbrush_id,
-      </if>
-      <if test="mouthwash != null">
-        mouthwash,
-      </if>
-      <if test="mouthwashId != null">
-        mouthwash_id,
-      </if>
-      <if test="dentalfloss != null">
-        dentalfloss,
-      </if>
-      <if test="dentalflossId != null">
-        dentalfloss_id,
-      </if>
-      <if test="sales != null">
-        sales,
+      <if test="setsProductId != null">
+        sets_product_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
+      <if test="setsId != null">
+        #{setsId,jdbcType=BIGINT},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
+      <if test="setsName != null">
+        #{setsName,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="setsCreateTime != null">
+        #{setsCreateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="toothpaste != null">
-        #{toothpaste,jdbcType=VARCHAR},
-      </if>
-      <if test="toothpasteId != null">
-        #{toothpasteId,jdbcType=BIGINT},
-      </if>
-      <if test="toothbrush != null">
-        #{toothbrush,jdbcType=VARCHAR},
-      </if>
-      <if test="toothbrushId != null">
-        #{toothbrushId,jdbcType=BIGINT},
-      </if>
-      <if test="mouthwash != null">
-        #{mouthwash,jdbcType=VARCHAR},
-      </if>
-      <if test="mouthwashId != null">
-        #{mouthwashId,jdbcType=BIGINT},
-      </if>
-      <if test="dentalfloss != null">
-        #{dentalfloss,jdbcType=VARCHAR},
-      </if>
-      <if test="dentalflossId != null">
-        #{dentalflossId,jdbcType=BIGINT},
-      </if>
-      <if test="sales != null">
-        #{sales,jdbcType=BIGINT},
+      <if test="setsProductId != null">
+        #{setsProductId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.Sets">
     update sets_tbl
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
+      <if test="setsName != null">
+        sets_name = #{setsName,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="setsCreateTime != null">
+        sets_create_time = #{setsCreateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="toothpaste != null">
-        toothpaste = #{toothpaste,jdbcType=VARCHAR},
-      </if>
-      <if test="toothpasteId != null">
-        toothpaste_id = #{toothpasteId,jdbcType=BIGINT},
-      </if>
-      <if test="toothbrush != null">
-        toothbrush = #{toothbrush,jdbcType=VARCHAR},
-      </if>
-      <if test="toothbrushId != null">
-        toothbrush_id = #{toothbrushId,jdbcType=BIGINT},
-      </if>
-      <if test="mouthwash != null">
-        mouthwash = #{mouthwash,jdbcType=VARCHAR},
-      </if>
-      <if test="mouthwashId != null">
-        mouthwash_id = #{mouthwashId,jdbcType=BIGINT},
-      </if>
-      <if test="dentalfloss != null">
-        dentalfloss = #{dentalfloss,jdbcType=VARCHAR},
-      </if>
-      <if test="dentalflossId != null">
-        dentalfloss_id = #{dentalflossId,jdbcType=BIGINT},
-      </if>
-      <if test="sales != null">
-        sales = #{sales,jdbcType=BIGINT},
+      <if test="setsProductId != null">
+        sets_product_id = #{setsProductId,jdbcType=BIGINT},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where sets_id = #{setsId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.maiya.bean.Sets">
     update sets_tbl
-    set user_id = #{userId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      toothpaste = #{toothpaste,jdbcType=VARCHAR},
-      toothpaste_id = #{toothpasteId,jdbcType=BIGINT},
-      toothbrush = #{toothbrush,jdbcType=VARCHAR},
-      toothbrush_id = #{toothbrushId,jdbcType=BIGINT},
-      mouthwash = #{mouthwash,jdbcType=VARCHAR},
-      mouthwash_id = #{mouthwashId,jdbcType=BIGINT},
-      dentalfloss = #{dentalfloss,jdbcType=VARCHAR},
-      dentalfloss_id = #{dentalflossId,jdbcType=BIGINT},
-      sales = #{sales,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
+    set sets_name = #{setsName,jdbcType=VARCHAR},
+      sets_create_time = #{setsCreateTime,jdbcType=TIMESTAMP},
+      sets_product_id = #{setsProductId,jdbcType=BIGINT}
+    where sets_id = #{setsId,jdbcType=BIGINT}
   </update>
 </mapper>

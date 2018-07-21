@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maiya.dao.ProductAttrMapper">
+  <resultMap id="BaseResultMap" type="com.maiya.bean.ProductAttr">
+    <id column="pa_id" jdbcType="BIGINT" property="paId" />
+    <result column="pa_product_id" jdbcType="BIGINT" property="paProductId" />
+    <result column="pa_classify_id" jdbcType="BIGINT" property="paClassifyId" />
+    <result column="is_sku" jdbcType="BIGINT" property="isSku" />
+    <result column="pa_create_time" jdbcType="TIMESTAMP" property="paCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pa_id, pa_product_id, pa_classify_id, is_sku, pa_create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_attribute_value_tbl
+    where pa_id = #{paId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from product_attribute_value_tbl
+    where pa_id = #{paId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.maiya.bean.ProductAttr">
+    insert into product_attribute_value_tbl (pa_id, pa_product_id, pa_classify_id, 
+      is_sku, pa_create_time)
+    values (#{paId,jdbcType=BIGINT}, #{paProductId,jdbcType=BIGINT}, #{paClassifyId,jdbcType=BIGINT}, 
+      #{isSku,jdbcType=BIGINT}, #{paCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maiya.bean.ProductAttr">
+    insert into product_attribute_value_tbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paId != null">
+        pa_id,
+      </if>
+      <if test="paProductId != null">
+        pa_product_id,
+      </if>
+      <if test="paClassifyId != null">
+        pa_classify_id,
+      </if>
+      <if test="isSku != null">
+        is_sku,
+      </if>
+      <if test="paCreateTime != null">
+        pa_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paId != null">
+        #{paId,jdbcType=BIGINT},
+      </if>
+      <if test="paProductId != null">
+        #{paProductId,jdbcType=BIGINT},
+      </if>
+      <if test="paClassifyId != null">
+        #{paClassifyId,jdbcType=BIGINT},
+      </if>
+      <if test="isSku != null">
+        #{isSku,jdbcType=BIGINT},
+      </if>
+      <if test="paCreateTime != null">
+        #{paCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.ProductAttr">
+    update product_attribute_value_tbl
+    <set>
+      <if test="paProductId != null">
+        pa_product_id = #{paProductId,jdbcType=BIGINT},
+      </if>
+      <if test="paClassifyId != null">
+        pa_classify_id = #{paClassifyId,jdbcType=BIGINT},
+      </if>
+      <if test="isSku != null">
+        is_sku = #{isSku,jdbcType=BIGINT},
+      </if>
+      <if test="paCreateTime != null">
+        pa_create_time = #{paCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pa_id = #{paId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maiya.bean.ProductAttr">
+    update product_attribute_value_tbl
+    set pa_product_id = #{paProductId,jdbcType=BIGINT},
+      pa_classify_id = #{paClassifyId,jdbcType=BIGINT},
+      is_sku = #{isSku,jdbcType=BIGINT},
+      pa_create_time = #{paCreateTime,jdbcType=TIMESTAMP}
+    where pa_id = #{paId,jdbcType=BIGINT}
+  </update>
+</mapper>

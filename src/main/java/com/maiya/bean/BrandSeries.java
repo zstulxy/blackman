@@ -2,11 +2,12 @@ package com.maiya.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class BrandSeries implements Serializable {
-    private Long id;
+    private Long brandId;
 
-    private Long classifyId;
+    private Long bClassifyId;
 
     private String brandNameCn;
 
@@ -14,26 +15,28 @@ public class BrandSeries implements Serializable {
 
     private String logo;
 
-    private Boolean status;
+    private Boolean bStatus;
 
-    private Date createTime;
+    private Date bCreateTime;
+
+    private List<Classify> classify;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
+    public Long getBrandId() {
+        return brandId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 
-    public Long getClassifyId() {
-        return classifyId;
+    public Long getbClassifyId() {
+        return bClassifyId;
     }
 
-    public void setClassifyId(Long classifyId) {
-        this.classifyId = classifyId;
+    public void setbClassifyId(Long bClassifyId) {
+        this.bClassifyId = bClassifyId;
     }
 
     public String getBrandNameCn() {
@@ -60,20 +63,20 @@ public class BrandSeries implements Serializable {
         this.logo = logo;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getbStatus() {
+        return bStatus;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setbStatus(Boolean bStatus) {
+        this.bStatus = bStatus;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getbCreateTime() {
+        return bCreateTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setbCreateTime(Date bCreateTime) {
+        this.bCreateTime = bCreateTime;
     }
 
     @Override
@@ -88,26 +91,26 @@ public class BrandSeries implements Serializable {
             return false;
         }
         BrandSeries other = (BrandSeries) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getClassifyId() == null ? other.getClassifyId() == null : this.getClassifyId().equals(other.getClassifyId()))
+        return (this.getBrandId() == null ? other.getBrandId() == null : this.getBrandId().equals(other.getBrandId()))
+            && (this.getbClassifyId() == null ? other.getbClassifyId() == null : this.getbClassifyId().equals(other.getbClassifyId()))
             && (this.getBrandNameCn() == null ? other.getBrandNameCn() == null : this.getBrandNameCn().equals(other.getBrandNameCn()))
             && (this.getBrandNameEn() == null ? other.getBrandNameEn() == null : this.getBrandNameEn().equals(other.getBrandNameEn()))
             && (this.getLogo() == null ? other.getLogo() == null : this.getLogo().equals(other.getLogo()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+            && (this.getbStatus() == null ? other.getbStatus() == null : this.getbStatus().equals(other.getbStatus()))
+            && (this.getbCreateTime() == null ? other.getbCreateTime() == null : this.getbCreateTime().equals(other.getbCreateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getClassifyId() == null) ? 0 : getClassifyId().hashCode());
+        result = prime * result + ((getBrandId() == null) ? 0 : getBrandId().hashCode());
+        result = prime * result + ((getbClassifyId() == null) ? 0 : getbClassifyId().hashCode());
         result = prime * result + ((getBrandNameCn() == null) ? 0 : getBrandNameCn().hashCode());
         result = prime * result + ((getBrandNameEn() == null) ? 0 : getBrandNameEn().hashCode());
         result = prime * result + ((getLogo() == null) ? 0 : getLogo().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getbStatus() == null) ? 0 : getbStatus().hashCode());
+        result = prime * result + ((getbCreateTime() == null) ? 0 : getbCreateTime().hashCode());
         return result;
     }
 
@@ -117,15 +120,23 @@ public class BrandSeries implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", classifyId=").append(classifyId);
+        sb.append(", brandId=").append(brandId);
+        sb.append(", bClassifyId=").append(bClassifyId);
         sb.append(", brandNameCn=").append(brandNameCn);
         sb.append(", brandNameEn=").append(brandNameEn);
         sb.append(", logo=").append(logo);
-        sb.append(", status=").append(status);
-        sb.append(", createTime=").append(createTime);
+        sb.append(", bStatus=").append(bStatus);
+        sb.append(", bCreateTime=").append(bCreateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public List<Classify> getClassify() {
+        return classify;
+    }
+
+    public void setClassify(List<Classify> classify) {
+        this.classify = classify;
     }
 }

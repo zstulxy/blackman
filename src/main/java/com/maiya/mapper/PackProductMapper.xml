@@ -2,50 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.maiya.dao.PackProductMapper">
   <resultMap id="BaseResultMap" type="com.maiya.bean.PackProduct">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="status" jdbcType="BIT" property="status" />
+    <id column="pap_id" jdbcType="BIGINT" property="papId" />
+    <result column="pp_name" jdbcType="VARCHAR" property="ppName" />
+    <result column="pp_status" jdbcType="BIT" property="ppStatus" />
     <result column="type" jdbcType="BIGINT" property="type" />
     <result column="is_multi_brand" jdbcType="BIT" property="isMultiBrand" />
     <result column="pack_key" jdbcType="VARCHAR" property="packKey" />
     <result column="buyer_id" jdbcType="BIGINT" property="buyerId" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="pap_create_time" jdbcType="TIMESTAMP" property="papCreateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, status, type, is_multi_brand, pack_key, buyer_id, create_time
+    pap_id, pp_name, pp_status, type, is_multi_brand, pack_key, buyer_id, pap_create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from pack_product_tbl
-    where id = #{id,jdbcType=BIGINT}
+    where pap_id = #{papId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pack_product_tbl
-    where id = #{id,jdbcType=BIGINT}
+    where pap_id = #{papId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.maiya.bean.PackProduct">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into pack_product_tbl (name, status, type, 
-      is_multi_brand, pack_key, buyer_id, 
-      create_time)
-    values (#{name,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{type,jdbcType=BIGINT}, 
-      #{isMultiBrand,jdbcType=BIT}, #{packKey,jdbcType=VARCHAR}, #{buyerId,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=DATE})
+    insert into pack_product_tbl (pap_id, pp_name, pp_status, 
+      type, is_multi_brand, pack_key, 
+      buyer_id, pap_create_time)
+    values (#{papId,jdbcType=BIGINT}, #{ppName,jdbcType=VARCHAR}, #{ppStatus,jdbcType=BIT}, 
+      #{type,jdbcType=BIGINT}, #{isMultiBrand,jdbcType=BIT}, #{packKey,jdbcType=VARCHAR}, 
+      #{buyerId,jdbcType=BIGINT}, #{papCreateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.maiya.bean.PackProduct">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into pack_product_tbl
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        name,
+      <if test="papId != null">
+        pap_id,
       </if>
-      <if test="status != null">
-        status,
+      <if test="ppName != null">
+        pp_name,
+      </if>
+      <if test="ppStatus != null">
+        pp_status,
       </if>
       <if test="type != null">
         type,
@@ -59,16 +56,19 @@
       <if test="buyerId != null">
         buyer_id,
       </if>
-      <if test="createTime != null">
-        create_time,
+      <if test="papCreateTime != null">
+        pap_create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="papId != null">
+        #{papId,jdbcType=BIGINT},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=BIT},
+      <if test="ppName != null">
+        #{ppName,jdbcType=VARCHAR},
+      </if>
+      <if test="ppStatus != null">
+        #{ppStatus,jdbcType=BIT},
       </if>
       <if test="type != null">
         #{type,jdbcType=BIGINT},
@@ -82,19 +82,19 @@
       <if test="buyerId != null">
         #{buyerId,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=DATE},
+      <if test="papCreateTime != null">
+        #{papCreateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.PackProduct">
     update pack_product_tbl
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="ppName != null">
+        pp_name = #{ppName,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=BIT},
+      <if test="ppStatus != null">
+        pp_status = #{ppStatus,jdbcType=BIT},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=BIGINT},
@@ -108,21 +108,21 @@
       <if test="buyerId != null">
         buyer_id = #{buyerId,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=DATE},
+      <if test="papCreateTime != null">
+        pap_create_time = #{papCreateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where pap_id = #{papId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.maiya.bean.PackProduct">
     update pack_product_tbl
-    set name = #{name,jdbcType=VARCHAR},
-      status = #{status,jdbcType=BIT},
+    set pp_name = #{ppName,jdbcType=VARCHAR},
+      pp_status = #{ppStatus,jdbcType=BIT},
       type = #{type,jdbcType=BIGINT},
       is_multi_brand = #{isMultiBrand,jdbcType=BIT},
       pack_key = #{packKey,jdbcType=VARCHAR},
       buyer_id = #{buyerId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=DATE}
-    where id = #{id,jdbcType=BIGINT}
+      pap_create_time = #{papCreateTime,jdbcType=TIMESTAMP}
+    where pap_id = #{papId,jdbcType=BIGINT}
   </update>
 </mapper>

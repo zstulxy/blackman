@@ -2,65 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.maiya.dao.ProductPicMapper">
   <resultMap id="BaseResultMap" type="com.maiya.bean.ProductPic">
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="pp_id" jdbcType="BIGINT" property="ppId" />
     <result column="link" jdbcType="VARCHAR" property="link" />
-    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="pp_product_id" jdbcType="BIGINT" property="ppProductId" />
     <result column="is_master_graph" jdbcType="BIT" property="isMasterGraph" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="pp_create_time" jdbcType="TIMESTAMP" property="ppCreateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, link, product_id, is_master_graph, create_time
+    pp_id, link, pp_product_id, is_master_graph, pp_create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from product_pic_tbl
-    where id = #{id,jdbcType=BIGINT}
+    where pp_id = #{ppId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from product_pic_tbl
-    where id = #{id,jdbcType=BIGINT}
+    where pp_id = #{ppId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.maiya.bean.ProductPic">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into product_pic_tbl (link, product_id, is_master_graph, 
-      create_time)
-    values (#{link,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT}, #{isMasterGraph,jdbcType=BIT}, 
-      #{createTime,jdbcType=DATE})
+    insert into product_pic_tbl (pp_id, link, pp_product_id, 
+      is_master_graph, pp_create_time)
+    values (#{ppId,jdbcType=BIGINT}, #{link,jdbcType=VARCHAR}, #{ppProductId,jdbcType=BIGINT}, 
+      #{isMasterGraph,jdbcType=BIT}, #{ppCreateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.maiya.bean.ProductPic">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into product_pic_tbl
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ppId != null">
+        pp_id,
+      </if>
       <if test="link != null">
         link,
       </if>
-      <if test="productId != null">
-        product_id,
+      <if test="ppProductId != null">
+        pp_product_id,
       </if>
       <if test="isMasterGraph != null">
         is_master_graph,
       </if>
-      <if test="createTime != null">
-        create_time,
+      <if test="ppCreateTime != null">
+        pp_create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ppId != null">
+        #{ppId,jdbcType=BIGINT},
+      </if>
       <if test="link != null">
         #{link,jdbcType=VARCHAR},
       </if>
-      <if test="productId != null">
-        #{productId,jdbcType=BIGINT},
+      <if test="ppProductId != null">
+        #{ppProductId,jdbcType=BIGINT},
       </if>
       <if test="isMasterGraph != null">
         #{isMasterGraph,jdbcType=BIT},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=DATE},
+      <if test="ppCreateTime != null">
+        #{ppCreateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -70,24 +70,24 @@
       <if test="link != null">
         link = #{link,jdbcType=VARCHAR},
       </if>
-      <if test="productId != null">
-        product_id = #{productId,jdbcType=BIGINT},
+      <if test="ppProductId != null">
+        pp_product_id = #{ppProductId,jdbcType=BIGINT},
       </if>
       <if test="isMasterGraph != null">
         is_master_graph = #{isMasterGraph,jdbcType=BIT},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=DATE},
+      <if test="ppCreateTime != null">
+        pp_create_time = #{ppCreateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where pp_id = #{ppId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.maiya.bean.ProductPic">
     update product_pic_tbl
     set link = #{link,jdbcType=VARCHAR},
-      product_id = #{productId,jdbcType=BIGINT},
+      pp_product_id = #{ppProductId,jdbcType=BIGINT},
       is_master_graph = #{isMasterGraph,jdbcType=BIT},
-      create_time = #{createTime,jdbcType=DATE}
-    where id = #{id,jdbcType=BIGINT}
+      pp_create_time = #{ppCreateTime,jdbcType=TIMESTAMP}
+    where pp_id = #{ppId,jdbcType=BIGINT}
   </update>
 </mapper>

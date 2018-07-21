@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class PackProduct implements Serializable {
-    private Long id;
+    private Long papId;
 
-    private String name;
+    private String ppName;
 
-    private Boolean status;
+    private Boolean ppStatus;
 
     private Long type;
 
@@ -18,32 +18,32 @@ public class PackProduct implements Serializable {
 
     private Long buyerId;
 
-    private Date createTime;
+    private Date papCreateTime;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
+    public Long getPapId() {
+        return papId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPapId(Long papId) {
+        this.papId = papId;
     }
 
-    public String getName() {
-        return name;
+    public String getPpName() {
+        return ppName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPpName(String ppName) {
+        this.ppName = ppName;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getPpStatus() {
+        return ppStatus;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setPpStatus(Boolean ppStatus) {
+        this.ppStatus = ppStatus;
     }
 
     public Long getType() {
@@ -78,12 +78,12 @@ public class PackProduct implements Serializable {
         this.buyerId = buyerId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getPapCreateTime() {
+        return papCreateTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setPapCreateTime(Date papCreateTime) {
+        this.papCreateTime = papCreateTime;
     }
 
     @Override
@@ -98,28 +98,28 @@ public class PackProduct implements Serializable {
             return false;
         }
         PackProduct other = (PackProduct) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+        return (this.getPapId() == null ? other.getPapId() == null : this.getPapId().equals(other.getPapId()))
+            && (this.getPpName() == null ? other.getPpName() == null : this.getPpName().equals(other.getPpName()))
+            && (this.getPpStatus() == null ? other.getPpStatus() == null : this.getPpStatus().equals(other.getPpStatus()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getIsMultiBrand() == null ? other.getIsMultiBrand() == null : this.getIsMultiBrand().equals(other.getIsMultiBrand()))
             && (this.getPackKey() == null ? other.getPackKey() == null : this.getPackKey().equals(other.getPackKey()))
             && (this.getBuyerId() == null ? other.getBuyerId() == null : this.getBuyerId().equals(other.getBuyerId()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+            && (this.getPapCreateTime() == null ? other.getPapCreateTime() == null : this.getPapCreateTime().equals(other.getPapCreateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getPapId() == null) ? 0 : getPapId().hashCode());
+        result = prime * result + ((getPpName() == null) ? 0 : getPpName().hashCode());
+        result = prime * result + ((getPpStatus() == null) ? 0 : getPpStatus().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getIsMultiBrand() == null) ? 0 : getIsMultiBrand().hashCode());
         result = prime * result + ((getPackKey() == null) ? 0 : getPackKey().hashCode());
         result = prime * result + ((getBuyerId() == null) ? 0 : getBuyerId().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getPapCreateTime() == null) ? 0 : getPapCreateTime().hashCode());
         return result;
     }
 
@@ -129,14 +129,14 @@ public class PackProduct implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", status=").append(status);
+        sb.append(", papId=").append(papId);
+        sb.append(", ppName=").append(ppName);
+        sb.append(", ppStatus=").append(ppStatus);
         sb.append(", type=").append(type);
         sb.append(", isMultiBrand=").append(isMultiBrand);
         sb.append(", packKey=").append(packKey);
         sb.append(", buyerId=").append(buyerId);
-        sb.append(", createTime=").append(createTime);
+        sb.append(", papCreateTime=").append(papCreateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

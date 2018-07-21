@@ -4,40 +4,44 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Product implements Serializable {
-    private Long id;
+    private Long pId;
 
-    private String name;
+    private String pName;
 
-    private Long brandId;
+    private Long pBrandId;
 
     private Long sellerId;
 
-    private Date createTime;
+    private Date pCreateTime;
+	
+	private ProductSku productSku;
+	
+	private PackProductInfo packProductInfo;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
+    public Long getpId() {
+        return pId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setpId(Long pId) {
+        this.pId = pId;
     }
 
-    public String getName() {
-        return name;
+    public String getpName() {
+        return pName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 
-    public Long getBrandId() {
-        return brandId;
+    public Long getpBrandId() {
+        return pBrandId;
     }
 
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
+    public void setpBrandId(Long pBrandId) {
+        this.pBrandId = pBrandId;
     }
 
     public Long getSellerId() {
@@ -48,12 +52,12 @@ public class Product implements Serializable {
         this.sellerId = sellerId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getpCreateTime() {
+        return pCreateTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setpCreateTime(Date pCreateTime) {
+        this.pCreateTime = pCreateTime;
     }
 
     @Override
@@ -68,22 +72,22 @@ public class Product implements Serializable {
             return false;
         }
         Product other = (Product) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getBrandId() == null ? other.getBrandId() == null : this.getBrandId().equals(other.getBrandId()))
+        return (this.getpId() == null ? other.getpId() == null : this.getpId().equals(other.getpId()))
+            && (this.getpName() == null ? other.getpName() == null : this.getpName().equals(other.getpName()))
+            && (this.getpBrandId() == null ? other.getpBrandId() == null : this.getpBrandId().equals(other.getpBrandId()))
             && (this.getSellerId() == null ? other.getSellerId() == null : this.getSellerId().equals(other.getSellerId()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+            && (this.getpCreateTime() == null ? other.getpCreateTime() == null : this.getpCreateTime().equals(other.getpCreateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getBrandId() == null) ? 0 : getBrandId().hashCode());
+        result = prime * result + ((getpId() == null) ? 0 : getpId().hashCode());
+        result = prime * result + ((getpName() == null) ? 0 : getpName().hashCode());
+        result = prime * result + ((getpBrandId() == null) ? 0 : getpBrandId().hashCode());
         result = prime * result + ((getSellerId() == null) ? 0 : getSellerId().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getpCreateTime() == null) ? 0 : getpCreateTime().hashCode());
         return result;
     }
 
@@ -93,13 +97,29 @@ public class Product implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", brandId=").append(brandId);
+        sb.append(", pId=").append(pId);
+        sb.append(", pName=").append(pName);
+        sb.append(", pBrandId=").append(pBrandId);
         sb.append(", sellerId=").append(sellerId);
-        sb.append(", createTime=").append(createTime);
+        sb.append(", pCreateTime=").append(pCreateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public ProductSku getProductSku() {
+        return productSku;
+    }
+
+    public void setProductSku(ProductSku productSku) {
+        this.productSku = productSku;
+    }
+
+    public PackProductInfo getPackProductInfo() {
+        return packProductInfo;
+    }
+
+    public void setPackProductInfo(PackProductInfo packProductInfo) {
+        this.packProductInfo = packProductInfo;
     }
 }

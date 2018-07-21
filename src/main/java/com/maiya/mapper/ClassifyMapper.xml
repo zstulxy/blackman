@@ -2,57 +2,76 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.maiya.dao.ClassifyMapper">
   <resultMap id="BaseResultMap" type="com.maiya.bean.Classify">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="classify_id" jdbcType="BIGINT" property="classifyId" />
+    <result column="cl_name" jdbcType="VARCHAR" property="clName" />
+    <collection property="product" resultMap="productResult" />
+  </resultMap>
+  <resultMap id="productResult" type="com.maiya.bean.Product">
+    <id column="p_id" jdbcType="BIGINT" property="pId" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="p_brand_id" jdbcType="BIGINT" property="pBrandId" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <association  property="productSku" resultMap="productSkuResult" />
+  </resultMap>
+
+  <resultMap id="productSkuResult" type="com.maiya.bean.ProductSku">
+    <id column="ps_id" jdbcType="BIGINT" property="psId" />
+    <result column="ps_product_id" jdbcType="BIGINT" property="psProductId" />
+    <result column="ps_quantity" jdbcType="BIGINT" property="psQuantity" />
+    <result column="ps_price" jdbcType="DECIMAL" property="psPrice" />
+    <result column="ps_status" jdbcType="BIT" property="psStatus" />
+    <result column="product_code" jdbcType="BIGINT" property="productCode" />
+    <result column="ps_create_time" jdbcType="TIMESTAMP" property="psCreateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name
+    classify_id, cl_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from classify_tbl
-    where id = #{id,jdbcType=BIGINT}
+    where classify_id = #{classifyId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from classify_tbl
-    where id = #{id,jdbcType=BIGINT}
+    where classify_id = #{classifyId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.maiya.bean.Classify">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into classify_tbl (name)
-    values (#{name,jdbcType=VARCHAR})
+    insert into classify_tbl (classify_id, cl_name)
+    values (#{classifyId,jdbcType=BIGINT}, #{clName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.maiya.bean.Classify">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into classify_tbl
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        name,
+      <if test="classifyId != null">
+        classify_id,
+      </if>
+      <if test="clName != null">
+        cl_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="classifyId != null">
+        #{classifyId,jdbcType=BIGINT},
+      </if>
+      <if test="clName != null">
+        #{clName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.Classify">
     update classify_tbl
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="clName != null">
+        cl_name = #{clName,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where classify_id = #{classifyId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.maiya.bean.Classify">
     update classify_tbl
-    set name = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+    set cl_name = #{clName,jdbcType=VARCHAR}
+    where classify_id = #{classifyId,jdbcType=BIGINT}
   </update>
 </mapper>

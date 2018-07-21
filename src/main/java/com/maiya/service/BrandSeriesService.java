@@ -1,4 +1,4 @@
-package com.maiya.dao;
+package com.maiya.service;
 
 import com.maiya.bean.BrandSeries;
 import com.maiya.bean.BrandSeriesWithBLOBs;
@@ -6,14 +6,14 @@ import com.maiya.bean.BrandSeriesWithBLOBs;
 import java.util.HashMap;
 import java.util.List;
 
-public interface BrandSeriesMapper {
-    int deleteByPrimaryKey(Long brandId);
+public interface BrandSeriesService {
+    int deleteByPrimaryKey(Long id);
 
     int insert(BrandSeriesWithBLOBs record);
 
     int insertSelective(BrandSeriesWithBLOBs record);
 
-    BrandSeriesWithBLOBs selectByPrimaryKey(Long brandId);
+    BrandSeriesWithBLOBs selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(BrandSeriesWithBLOBs record);
 
@@ -22,4 +22,5 @@ public interface BrandSeriesMapper {
     int updateByPrimaryKey(BrandSeries record);
 
     List<Object> selectByBrand(HashMap<String, Object> parameters);
+
 }
