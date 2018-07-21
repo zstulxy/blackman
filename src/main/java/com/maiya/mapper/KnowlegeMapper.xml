@@ -5,7 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="writer" jdbcType="VARCHAR" property="writer" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.maiya.bean.Knowlege">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
@@ -32,7 +32,7 @@
     insert into knowledge_tbl (id, writer, title, 
       create_time, content)
     values (#{id,jdbcType=BIGINT}, #{writer,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=DATE}, #{content,jdbcType=LONGVARCHAR})
+      #{createTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.maiya.bean.Knowlege">
     insert into knowledge_tbl
@@ -64,7 +64,7 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=DATE},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
@@ -81,7 +81,7 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=DATE},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
@@ -93,7 +93,7 @@
     update knowledge_tbl
     set writer = #{writer,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -101,7 +101,7 @@
     update knowledge_tbl
     set writer = #{writer,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=DATE}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

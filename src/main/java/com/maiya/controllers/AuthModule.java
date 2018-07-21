@@ -13,11 +13,11 @@ public class AuthModule {
     private static Logger logger = Logger.getLogger(AuthModule.class);
     @Resource
     private AuthService authService;
+
     private Long userId_;
     private String userName_;
     private Byte privilegeType_;
     private String privilege_;
-    private User user_ = null;
     private WebUser webUser_ = null;
     private AppUser appUser_ = null;
 
@@ -35,7 +35,6 @@ public class AuthModule {
         logger.debug("==============" );
         userId_ = objects.getUserId();
         userName_ = objects.getName();
-        user_ = objects.getUser();
         appUser_ = objects.getAppUser();
         webUser_ = objects.getWebUser();
 
@@ -62,10 +61,6 @@ public class AuthModule {
     public String getPrivilege() {
         privilege_ = (webUser_ == null) ? null : webUser_.getPrivilege();
         return privilege_;
-    }
-
-    public User getUser() {
-        return user_;
     }
 
     public AppUser getAppUser() {

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maiya.dao.ProductSkuMapper">
+  <resultMap id="BaseResultMap" type="com.maiya.bean.ProductSku">
+    <id column="ps_id" jdbcType="BIGINT" property="psId" />
+    <result column="ps_product_id" jdbcType="BIGINT" property="psProductId" />
+    <result column="ps_quantity" jdbcType="BIGINT" property="psQuantity" />
+    <result column="ps_price" jdbcType="DECIMAL" property="psPrice" />
+    <result column="ps_status" jdbcType="BIT" property="psStatus" />
+    <result column="product_code" jdbcType="BIGINT" property="productCode" />
+    <result column="ps_create_time" jdbcType="TIMESTAMP" property="psCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ps_id, ps_product_id, ps_quantity, ps_price, ps_status, product_code, ps_create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_sku_tbl
+    where ps_id = #{psId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from product_sku_tbl
+    where ps_id = #{psId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.maiya.bean.ProductSku">
+    insert into product_sku_tbl (ps_id, ps_product_id, ps_quantity, 
+      ps_price, ps_status, product_code, 
+      ps_create_time)
+    values (#{psId,jdbcType=BIGINT}, #{psProductId,jdbcType=BIGINT}, #{psQuantity,jdbcType=BIGINT}, 
+      #{psPrice,jdbcType=DECIMAL}, #{psStatus,jdbcType=BIT}, #{productCode,jdbcType=BIGINT}, 
+      #{psCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maiya.bean.ProductSku">
+    insert into product_sku_tbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psId != null">
+        ps_id,
+      </if>
+      <if test="psProductId != null">
+        ps_product_id,
+      </if>
+      <if test="psQuantity != null">
+        ps_quantity,
+      </if>
+      <if test="psPrice != null">
+        ps_price,
+      </if>
+      <if test="psStatus != null">
+        ps_status,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="psCreateTime != null">
+        ps_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psId != null">
+        #{psId,jdbcType=BIGINT},
+      </if>
+      <if test="psProductId != null">
+        #{psProductId,jdbcType=BIGINT},
+      </if>
+      <if test="psQuantity != null">
+        #{psQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="psPrice != null">
+        #{psPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="psStatus != null">
+        #{psStatus,jdbcType=BIT},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=BIGINT},
+      </if>
+      <if test="psCreateTime != null">
+        #{psCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.ProductSku">
+    update product_sku_tbl
+    <set>
+      <if test="psProductId != null">
+        ps_product_id = #{psProductId,jdbcType=BIGINT},
+      </if>
+      <if test="psQuantity != null">
+        ps_quantity = #{psQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="psPrice != null">
+        ps_price = #{psPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="psStatus != null">
+        ps_status = #{psStatus,jdbcType=BIT},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=BIGINT},
+      </if>
+      <if test="psCreateTime != null">
+        ps_create_time = #{psCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ps_id = #{psId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maiya.bean.ProductSku">
+    update product_sku_tbl
+    set ps_product_id = #{psProductId,jdbcType=BIGINT},
+      ps_quantity = #{psQuantity,jdbcType=BIGINT},
+      ps_price = #{psPrice,jdbcType=DECIMAL},
+      ps_status = #{psStatus,jdbcType=BIT},
+      product_code = #{productCode,jdbcType=BIGINT},
+      ps_create_time = #{psCreateTime,jdbcType=TIMESTAMP}
+    where ps_id = #{psId,jdbcType=BIGINT}
+  </update>
+</mapper>

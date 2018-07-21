@@ -13,6 +13,8 @@ public class WebUserUpdate extends UserUpdate{
 
     private Byte assess;
 
+    private String hosptial;
+
     public String getCareers() {
         return careers;
     }
@@ -59,5 +61,13 @@ public class WebUserUpdate extends UserUpdate{
 
     public void setAssess(Byte assess) {
         this.assess = assess;
+    }
+
+    public String getHosptial() {
+        return hosptial;
+    }
+
+    public void setHosptial(String hosptial) {
+        this.hosptial = hosptial;
     }
 }

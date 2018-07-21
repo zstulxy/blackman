@@ -1,11 +1,12 @@
-package com.maiya.dao;
+package com.maiya.service;
 
 import com.maiya.bean.AppUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
 
-public interface AppUserMapper {
+public interface AppUserService {
     int deleteByPrimaryKey(Long id);
 
     int insert(AppUser record);
@@ -18,6 +19,8 @@ public interface AppUserMapper {
 
     int updateByPrimaryKey(AppUser record);
 
+    AppUser selectAppUserByPassword(@Param("name") String name, @Param("password") String password);
+
     List<Object> selectAppAllUser(String name);
 
     List<Object> selectAllAppByUserId(HashMap<String, Object> parameters);
@@ -27,6 +30,4 @@ public interface AppUserMapper {
     AppUser selectAppUserByUserId(Long id);
 
     int deleteAppByPrimaryKey(Long id);
-
-    AppUser selectAppUserByPassword(String name, String password);
 }

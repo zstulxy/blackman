@@ -9,23 +9,8 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="token" jdbcType="VARCHAR" property="token" />
     <result column="last_visit" jdbcType="TIMESTAMP" property="lastVisit" />
-    <collection property="user" resultMap="userResult" />
     <collection property="appUser" resultMap="appUserResult" />
     <collection property="webUser" resultMap="webUserResult" />
-  </resultMap>
-
-  <resultMap id="userResult" type="com.maiya.bean.User" >
-    <id column="u_user_id" property="id" jdbcType="BIGINT" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="sex" jdbcType="TINYINT" property="sex" />
-    <result column="age" jdbcType="TINYINT" property="age" />
-    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
-    <result column="verification" jdbcType="VARCHAR" property="verification" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="background_icon" jdbcType="VARCHAR" property="backgroundIcon" />
-    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
   </resultMap>
 
   <resultMap id="appUserResult" type="com.maiya.bean.AppUser" >
@@ -33,6 +18,7 @@
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="points" jdbcType="SMALLINT" property="points" />
+    <collection property="user" resultMap="userResult" />
   </resultMap>
 
   <resultMap id="webUserResult" type="com.maiya.bean.WebUser" >
@@ -44,6 +30,24 @@
     <result column="certificate" jdbcType="VARCHAR" property="certificate" />
     <result column="identity" jdbcType="BIT" property="identity" />
     <result column="assess" jdbcType="TINYINT" property="assess" />
+    <result column="hosptial" jdbcType="VARCHAR" property="hosptial" />
+    <collection property="user" resultMap="userResult" />
+  </resultMap>
+
+  <resultMap id="userResult" type="com.maiya.bean.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="age" jdbcType="TINYINT" property="age" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="verification" jdbcType="VARCHAR" property="verification" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="background_icon" jdbcType="VARCHAR" property="backgroundIcon" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
   </resultMap>
 
   <sql id="Base_Column_List">

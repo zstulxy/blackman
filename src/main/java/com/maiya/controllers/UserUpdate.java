@@ -25,6 +25,10 @@ public class UserUpdate {
 
     private String idCard;
 
+    private String province;
+
+    private String city;
+
     public String getName() {
         return name;
     }
@@ -103,5 +107,21 @@ public class UserUpdate {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

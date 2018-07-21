@@ -1,11 +1,11 @@
-package com.maiya.dao;
+package com.maiya.service;
 
 import com.maiya.bean.Sets;
 
 import java.util.HashMap;
 import java.util.List;
 
-public interface SetsMapper {
+public interface SetsService {
     int deleteByPrimaryKey(Long setsId);
 
     int insert(Sets record);

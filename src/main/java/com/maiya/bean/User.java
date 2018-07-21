@@ -25,9 +25,9 @@ public class User implements Serializable {
 
     private String idCard;
 
-    private WebUser webUser;
+    private String province;
 
-    private AppUser appUser;
+    private String city;
 
     private static final long serialVersionUID = 1L;
 
@@ -119,6 +119,22 @@ public class User implements Serializable {
         this.idCard = idCard;
     }
 
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -142,8 +158,8 @@ public class User implements Serializable {
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getBackgroundIcon() == null ? other.getBackgroundIcon() == null : this.getBackgroundIcon().equals(other.getBackgroundIcon()))
             && (this.getIdCard() == null ? other.getIdCard() == null : this.getIdCard().equals(other.getIdCard()))
-                && (this.getAppUser() == null ? other.getAppUser() == null : this.getAppUser().equals(other.getAppUser()))
-                && (this.getWebUser() == null ? other.getWebUser() == null : this.getWebUser().equals(other.getWebUser()));
+            && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
+            && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()));
     }
 
     @Override
@@ -161,8 +177,8 @@ public class User implements Serializable {
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getBackgroundIcon() == null) ? 0 : getBackgroundIcon().hashCode());
         result = prime * result + ((getIdCard() == null) ? 0 : getIdCard().hashCode());
-        result = prime * result + ((getWebUser() == null) ? 0 : getWebUser().hashCode());
-        result = prime * result + ((getAppUser() == null) ? 0 : getAppUser().hashCode());
+        result = prime * result + ((getProvince() == null) ? 0 : getProvince().hashCode());
+        result = prime * result + ((getCity() == null) ? 0 : getCity().hashCode());
         return result;
     }
 
@@ -183,24 +199,10 @@ public class User implements Serializable {
         sb.append(", password=").append(password);
         sb.append(", backgroundIcon=").append(backgroundIcon);
         sb.append(", idCard=").append(idCard);
+        sb.append(", province=").append(province);
+        sb.append(", city=").append(city);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
-    }
-
-    public WebUser getWebUser() {
-        return webUser;
-    }
-
-    public void setWebUser(WebUser webUser) {
-        this.webUser = webUser;
-    }
-
-    public AppUser getAppUser() {
-        return appUser;
-    }
-
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
     }
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maiya.dao.PackProductInfoMapper">
+  <resultMap id="BaseResultMap" type="com.maiya.bean.PackProductInfo">
+    <id column="ppi_id" jdbcType="BIGINT" property="ppiId" />
+    <result column="ppi_pack_id" jdbcType="BIGINT" property="ppiPackId" />
+    <result column="ppi_sku_id" jdbcType="BIGINT" property="ppiSkuId" />
+    <result column="ppi_quantity" jdbcType="BIGINT" property="ppiQuantity" />
+    <result column="ppi_price" jdbcType="DECIMAL" property="ppiPrice" />
+    <result column="ppi_create_time" jdbcType="TIMESTAMP" property="ppiCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ppi_id, ppi_pack_id, ppi_sku_id, ppi_quantity, ppi_price, ppi_create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pack_product_info_tbl
+    where ppi_id = #{ppiId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pack_product_info_tbl
+    where ppi_id = #{ppiId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.maiya.bean.PackProductInfo">
+    insert into pack_product_info_tbl (ppi_id, ppi_pack_id, ppi_sku_id, 
+      ppi_quantity, ppi_price, ppi_create_time
+      )
+    values (#{ppiId,jdbcType=BIGINT}, #{ppiPackId,jdbcType=BIGINT}, #{ppiSkuId,jdbcType=BIGINT}, 
+      #{ppiQuantity,jdbcType=BIGINT}, #{ppiPrice,jdbcType=DECIMAL}, #{ppiCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maiya.bean.PackProductInfo">
+    insert into pack_product_info_tbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ppiId != null">
+        ppi_id,
+      </if>
+      <if test="ppiPackId != null">
+        ppi_pack_id,
+      </if>
+      <if test="ppiSkuId != null">
+        ppi_sku_id,
+      </if>
+      <if test="ppiQuantity != null">
+        ppi_quantity,
+      </if>
+      <if test="ppiPrice != null">
+        ppi_price,
+      </if>
+      <if test="ppiCreateTime != null">
+        ppi_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ppiId != null">
+        #{ppiId,jdbcType=BIGINT},
+      </if>
+      <if test="ppiPackId != null">
+        #{ppiPackId,jdbcType=BIGINT},
+      </if>
+      <if test="ppiSkuId != null">
+        #{ppiSkuId,jdbcType=BIGINT},
+      </if>
+      <if test="ppiQuantity != null">
+        #{ppiQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="ppiPrice != null">
+        #{ppiPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ppiCreateTime != null">
+        #{ppiCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.PackProductInfo">
+    update pack_product_info_tbl
+    <set>
+      <if test="ppiPackId != null">
+        ppi_pack_id = #{ppiPackId,jdbcType=BIGINT},
+      </if>
+      <if test="ppiSkuId != null">
+        ppi_sku_id = #{ppiSkuId,jdbcType=BIGINT},
+      </if>
+      <if test="ppiQuantity != null">
+        ppi_quantity = #{ppiQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="ppiPrice != null">
+        ppi_price = #{ppiPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ppiCreateTime != null">
+        ppi_create_time = #{ppiCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ppi_id = #{ppiId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maiya.bean.PackProductInfo">
+    update pack_product_info_tbl
+    set ppi_pack_id = #{ppiPackId,jdbcType=BIGINT},
+      ppi_sku_id = #{ppiSkuId,jdbcType=BIGINT},
+      ppi_quantity = #{ppiQuantity,jdbcType=BIGINT},
+      ppi_price = #{ppiPrice,jdbcType=DECIMAL},
+      ppi_create_time = #{ppiCreateTime,jdbcType=TIMESTAMP}
+    where ppi_id = #{ppiId,jdbcType=BIGINT}
+  </update>
+</mapper>

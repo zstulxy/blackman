@@ -14,6 +14,8 @@ public class WebUserCreate extends UserCreate {
 
     private Byte assess;
 
+    private String hosptial;
+
     public String getCareers() {
         return careers;
     }
@@ -60,5 +62,13 @@ public class WebUserCreate extends UserCreate {
 
     public void setAssess(Byte assess) {
         this.assess = assess;
+    }
+
+    public String getHosptial() {
+        return hosptial;
+    }
+
+    public void setHosptial(String hosptial) {
+        this.hosptial = hosptial;
     }
 }

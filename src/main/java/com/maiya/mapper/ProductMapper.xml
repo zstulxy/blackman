@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maiya.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.maiya.bean.Product">
+    <id column="p_id" jdbcType="BIGINT" property="pId" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="p_brand_id" jdbcType="BIGINT" property="pBrandId" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="p_create_time" jdbcType="TIMESTAMP" property="pCreateTime" />
+    <association  property="productSku" resultMap="productSkuResult" />
+    <association  property="packProductInfo" resultMap="packProductInfoResult" />
+  </resultMap>
+  <resultMap id="productSkuResult" type="com.maiya.bean.ProductSku">
+    <id column="ps_id" jdbcType="BIGINT" property="psId" />
+    <result column="ps_product_id" jdbcType="BIGINT" property="psProductId" />
+    <result column="ps_quantity" jdbcType="BIGINT" property="psQuantity" />
+    <result column="ps_price" jdbcType="DECIMAL" property="psPrice" />
+    <result column="ps_status" jdbcType="BIT" property="psStatus" />
+    <result column="product_code" jdbcType="BIGINT" property="productCode" />
+    <result column="ps_create_time" jdbcType="TIMESTAMP" property="psCreateTime" />
+  </resultMap>
+  <resultMap id="packProductInfoResult" type="com.maiya.bean.PackProductInfo">
+    <id column="ppi_id" jdbcType="BIGINT" property="ppiId" />
+    <result column="ppi_pack_id" jdbcType="BIGINT" property="ppiPackId" />
+    <result column="ppi_sku_id" jdbcType="BIGINT" property="ppiSkuId" />
+    <result column="ppi_quantity" jdbcType="BIGINT" property="ppiQuantity" />
+    <result column="ppi_price" jdbcType="DECIMAL" property="ppiPrice" />
+    <result column="ppi_create_time" jdbcType="TIMESTAMP" property="ppiCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    p_id, p_name, p_brand_id, seller_id, p_create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_tbl
+    where p_id = #{pId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from product_tbl
+    where p_id = #{pId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.maiya.bean.Product">
+    insert into product_tbl (p_id, p_name, p_brand_id, 
+      seller_id, p_create_time)
+    values (#{pId,jdbcType=BIGINT}, #{pName,jdbcType=VARCHAR}, #{pBrandId,jdbcType=BIGINT}, 
+      #{sellerId,jdbcType=BIGINT}, #{pCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maiya.bean.Product">
+    insert into product_tbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="pName != null">
+        p_name,
+      </if>
+      <if test="pBrandId != null">
+        p_brand_id,
+      </if>
+      <if test="sellerId != null">
+        seller_id,
+      </if>
+      <if test="pCreateTime != null">
+        p_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pId != null">
+        #{pId,jdbcType=BIGINT},
+      </if>
+      <if test="pName != null">
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pBrandId != null">
+        #{pBrandId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerId != null">
+        #{sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="pCreateTime != null">
+        #{pCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maiya.bean.Product">
+    update product_tbl
+    <set>
+      <if test="pName != null">
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pBrandId != null">
+        p_brand_id = #{pBrandId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerId != null">
+        seller_id = #{sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="pCreateTime != null">
+        p_create_time = #{pCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maiya.bean.Product">
+    update product_tbl
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_brand_id = #{pBrandId,jdbcType=BIGINT},
+      seller_id = #{sellerId,jdbcType=BIGINT},
+      p_create_time = #{pCreateTime,jdbcType=TIMESTAMP}
+    where p_id = #{pId,jdbcType=BIGINT}
+  </update>
+</mapper>

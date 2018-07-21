@@ -18,8 +18,6 @@ public class Auth implements Serializable {
 
     private Date lastVisit;
 
-    private User user;
-
     private AppUser appUser;
 
     private WebUser webUser;
@@ -133,14 +131,6 @@ public class Auth implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public AppUser getAppUser() {

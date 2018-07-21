@@ -1,68 +1,52 @@
 package com.maiya.bean;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 public class Sets implements Serializable {
-    private Long id;
+    private Long setsId;
 
-    private Long userId;
+    private String setsName;
 
-    private String toothpaste;
+    private Date setsCreateTime;
 
-    private String toothbrush;
+    private Long setsProductId;
 
-    private String mouthwash;
-
-    private String dentalfloss;
+    private List<Product> products;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
+    public Long getSetsId() {
+        return setsId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSetsId(Long setsId) {
+        this.setsId = setsId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getSetsName() {
+        return setsName;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSetsName(String setsName) {
+        this.setsName = setsName;
     }
 
-    public String getToothpaste() {
-        return toothpaste;
+    public Date getSetsCreateTime() {
+        return setsCreateTime;
     }
 
-    public void setToothpaste(String toothpaste) {
-        this.toothpaste = toothpaste;
+    public void setSetsCreateTime(Date setsCreateTime) {
+        this.setsCreateTime = setsCreateTime;
     }
 
-    public String getToothbrush() {
-        return toothbrush;
+    public Long getSetsProductId() {
+        return setsProductId;
     }
 
-    public void setToothbrush(String toothbrush) {
-        this.toothbrush = toothbrush;
-    }
-
-    public String getMouthwash() {
-        return mouthwash;
-    }
-
-    public void setMouthwash(String mouthwash) {
-        this.mouthwash = mouthwash;
-    }
-
-    public String getDentalfloss() {
-        return dentalfloss;
-    }
-
-    public void setDentalfloss(String dentalfloss) {
-        this.dentalfloss = dentalfloss;
+    public void setSetsProductId(Long setsProductId) {
+        this.setsProductId = setsProductId;
     }
 
     @Override
@@ -77,24 +61,20 @@ public class Sets implements Serializable {
             return false;
         }
         Sets other = (Sets) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getToothpaste() == null ? other.getToothpaste() == null : this.getToothpaste().equals(other.getToothpaste()))
-            && (this.getToothbrush() == null ? other.getToothbrush() == null : this.getToothbrush().equals(other.getToothbrush()))
-            && (this.getMouthwash() == null ? other.getMouthwash() == null : this.getMouthwash().equals(other.getMouthwash()))
-            && (this.getDentalfloss() == null ? other.getDentalfloss() == null : this.getDentalfloss().equals(other.getDentalfloss()));
+        return (this.getSetsId() == null ? other.getSetsId() == null : this.getSetsId().equals(other.getSetsId()))
+            && (this.getSetsName() == null ? other.getSetsName() == null : this.getSetsName().equals(other.getSetsName()))
+            && (this.getSetsCreateTime() == null ? other.getSetsCreateTime() == null : this.getSetsCreateTime().equals(other.getSetsCreateTime()))
+            && (this.getSetsProductId() == null ? other.getSetsProductId() == null : this.getSetsProductId().equals(other.getSetsProductId()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getToothpaste() == null) ? 0 : getToothpaste().hashCode());
-        result = prime * result + ((getToothbrush() == null) ? 0 : getToothbrush().hashCode());
-        result = prime * result + ((getMouthwash() == null) ? 0 : getMouthwash().hashCode());
-        result = prime * result + ((getDentalfloss() == null) ? 0 : getDentalfloss().hashCode());
+        result = prime * result + ((getSetsId() == null) ? 0 : getSetsId().hashCode());
+        result = prime * result + ((getSetsName() == null) ? 0 : getSetsName().hashCode());
+        result = prime * result + ((getSetsCreateTime() == null) ? 0 : getSetsCreateTime().hashCode());
+        result = prime * result + ((getSetsProductId() == null) ? 0 : getSetsProductId().hashCode());
         return result;
     }
 
@@ -104,14 +84,20 @@ public class Sets implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", toothpaste=").append(toothpaste);
-        sb.append(", toothbrush=").append(toothbrush);
-        sb.append(", mouthwash=").append(mouthwash);
-        sb.append(", dentalfloss=").append(dentalfloss);
+        sb.append(", setsId=").append(setsId);
+        sb.append(", setsName=").append(setsName);
+        sb.append(", setsCreateTime=").append(setsCreateTime);
+        sb.append(", setsProductId=").append(setsProductId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
