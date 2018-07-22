@@ -1,13 +1,15 @@
 package com.maiya.controllers;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.maiya.bean.BrandSeries;
+import com.maiya.bean.BrandSeriesWithBLOBs;
 import com.maiya.common.ErrorCode;
 import com.maiya.common.ErrorMsg;
 import com.maiya.service.BrandSeriesService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -118,6 +120,106 @@ public class BrandSeriesController extends AuthModule{
         data_result.put("list", products);
         HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
         result.put("data", data_result);
+        return result;
+    }
+
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    public @ResponseBody
+    HashMap<String, Object> inertBrand(@RequestBody String data, HttpServletRequest request) {
+        ErrorCode errCodesIndex = ErrorCode.SUCCESS;
+        ErrorMsg errorMsg = new ErrorMsg();
+
+        String token = request.getParameter("token");
+        boolean isAuth = this.isAuthSuccess(token);
+        if (!isAuth) {
+            errCodesIndex = ErrorCode.TOKEN_ERROR;
+            return errorMsg.ErrorCodeMsg(errCodesIndex);
+        }
+        logger.debug("*************data: " + data);
+
+        BrandBase brand = JSON.parseObject(data, BrandBase.class);
+        logger.debug(JSON.toJSON(brand));
+        int rc = service.insertSelective(TransformData(brand));
+        if (rc == 0) {
+            errCodesIndex = ErrorCode.INSERT_USER_ERROR;
+        }
+
+        HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
+        return result;
+    }
+
+    private BrandSeriesWithBLOBs TransformData(BrandBase src) {
+        BrandSeriesWithBLOBs result = new BrandSeriesWithBLOBs();
+        result.setbClassifyId(src.getbClassifyId());
+        result.setBrandNameCn(src.getBrandNameCn());
+        result.setBrandNameEn(src.getBrandNameEn());
+        result.setLogo(src.getLogo());
+        result.setbStatus(src.getbStatus());
+        result.setDescr(src.getDescr());
+        result.setStory(src.getStory());
+        return result;
+    }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public @ResponseBody
+    HashMap<String, Object> updateBrand(@RequestBody String data, HttpServletRequest request) {
+        ErrorCode errCodesIndex = ErrorCode.SUCCESS;
+        ErrorMsg errorMsg = new ErrorMsg();
+
+        String token = request.getParameter("token");
+        boolean isAuth = this.isAuthSuccess(token);
+        if (!isAuth) {
+            errCodesIndex = ErrorCode.TOKEN_ERROR;
+            return errorMsg.ErrorCodeMsg(errCodesIndex);
+        }
+        logger.debug("*************data: " + data);
+
+        BrandUpdate brand = JSON.parseObject(data, BrandUpdate.class);
+        logger.debug(JSON.toJSON(brand));
+        int rc = service.updateByPrimaryKeyWithBLOBs(TransformData(brand));
+        if (rc == 0) {
+            errCodesIndex = ErrorCode.INSERT_USER_ERROR;
+        }
+
+        HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
+        return result;
+    }
+
+    private BrandSeriesWithBLOBs TransformData(BrandUpdate src) {
+        BrandSeriesWithBLOBs result = new BrandSeriesWithBLOBs();
+        result.setBrandId(src.getBrandId());
+        result.setbClassifyId(src.getbClassifyId());
+        result.setBrandNameCn(src.getBrandNameCn());
+        result.setBrandNameEn(src.getBrandNameEn());
+        result.setLogo(src.getLogo());
+        result.setbStatus(src.getbStatus());
+        result.setDescr(src.getDescr());
+        result.setStory(src.getStory());
+        return result;
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public @ResponseBody
+    HashMap<String, Object> deleteBrand(@RequestBody String data, HttpServletRequest request) {
+        ErrorCode errCodesIndex = ErrorCode.SUCCESS;
+        ErrorMsg errorMsg = new ErrorMsg();
+
+        String token = request.getParameter("token");
+        boolean isAuth = this.isAuthSuccess(token);
+        if (!isAuth) {
+            errCodesIndex = ErrorCode.TOKEN_ERROR;
+            return errorMsg.ErrorCodeMsg(errCodesIndex);
+        }
+        logger.debug("*************data: " + data);
+
+        BrandDel brand = JSON.parseObject(data, BrandDel.class);
+        logger.debug(JSON.toJSON(brand));
+        int rc = service.deleteByPrimaryKey(brand.getBrandId());
+        if (rc == 0) {
+            errCodesIndex = ErrorCode.INSERT_USER_ERROR;
+        }
+
+        HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
         return result;
     }
 }

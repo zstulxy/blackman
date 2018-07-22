@@ -27,6 +27,13 @@
   <sql id="Base_Column_List">
     classify_id, cl_name
   </sql>
+
+  <select id="selectAll" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+      classify_tbl.cl_name as cl_name
+    from classify_tbl
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -1,11 +1,11 @@
-package com.maiya.dao;
+package com.maiya.service;
 
 import com.maiya.bean.Classify;
 
 import java.util.HashMap;
 import java.util.List;
 
-public interface ClassifyMapper {
+public interface ClassifyService {
     int deleteByPrimaryKey(Long classifyId);
 
     int insert(Classify record);

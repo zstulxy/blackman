@@ -3,11 +3,11 @@ package com.maiya.controllers;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.maiya.bean.BrandSeriesWithBLOBs;
 import com.maiya.bean.Classify;
-import com.maiya.bean.Sets;
 import com.maiya.common.ErrorCode;
 import com.maiya.common.ErrorMsg;
-import com.maiya.service.SetsService;
+import com.maiya.service.ClassifyService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,15 +21,15 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping("/sets")
-public class SetsController extends AuthModule{
-    private static Logger logger = Logger.getLogger(SetsController.class);
+@RequestMapping("/classify")
+public class ClassifyController extends AuthModule {
+    private static Logger logger = Logger.getLogger(ClassifyController.class);
     @Resource
-    private SetsService service;
+    private ClassifyService service;
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public @ResponseBody
-    HashMap<String, Object> selectAllSets(HttpServletRequest request) {
+    HashMap<String, Object> selectAll(HttpServletRequest request) {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
@@ -37,10 +37,9 @@ public class SetsController extends AuthModule{
                 : Integer.parseInt(request.getParameter("page_no"));
         Integer pageSize = (request.getParameter("page_size") == null) ? 10
                 : Integer.parseInt(request.getParameter("page_size"));
-        String setsName = request.getParameter("sets_name");
         String token = request.getParameter("token");
 
-        logger.debug("pageNo: " + pageNo + ", pageSIZE: " + pageSize + "userName: " + setsName + "token: " + token);
+        logger.debug("pageNo: " + pageNo + ", pageSIZE: " + pageSize + "token: " + token);
         boolean isAuth = this.isAuthSuccess(token);
         if (!isAuth) {
             errCodesIndex = ErrorCode.TOKEN_ERROR;
@@ -49,8 +48,7 @@ public class SetsController extends AuthModule{
 
         PageHelper.startPage(pageNo, pageSize);
         HashMap<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("sets_name", setsName);
-        List<Object> products = service.selectAllSets(parameters);
+        List<Object> products = service.selectAll(parameters);
         if (products.size() == 0) {
             errCodesIndex = ErrorCode.SELECT_USER_ERROR;
             HashMap<String, Object> result_tmp = errorMsg.ErrorCodeMsg(errCodesIndex);
@@ -61,7 +59,6 @@ public class SetsController extends AuthModule{
         HashMap<String, Object> data_result = new HashMap<String, Object>();
         data_result.put("total", page.getTotal());
         data_result.put("pageNo", pageNo);
-        data_result.put("filterName", setsName);
         data_result.put("type", "web");
         data_result.put("list", products);
         HashMap<String, Object> result = errorMsg.ErrorCodeMsg(errCodesIndex);
@@ -73,7 +70,7 @@ public class SetsController extends AuthModule{
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public @ResponseBody
-    HashMap<String, Object> inertSets(@RequestBody String data, HttpServletRequest request) {
+    HashMap<String, Object> inertBrand(@RequestBody String data, HttpServletRequest request) {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
@@ -85,7 +82,7 @@ public class SetsController extends AuthModule{
         }
         logger.debug("*************data: " + data);
 
-        SetsBase brand = JSON.parseObject(data, SetsBase.class);
+        ClassifyBase brand = JSON.parseObject(data, ClassifyBase.class);
         logger.debug(JSON.toJSON(brand));
         int rc = service.insertSelective(TransformData(brand));
         if (rc == 0) {
@@ -96,16 +93,15 @@ public class SetsController extends AuthModule{
         return result;
     }
 
-    private Sets TransformData(SetsBase src) {
-        Sets result = new Sets();
-        result.setSetsProductId(src.getSetsProductId());
-        result.setSetsName(src.getSetsName());
+    private Classify TransformData(ClassifyBase src) {
+        Classify result = new Classify();
+        result.setClName(result.getClName());
         return result;
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public @ResponseBody
-    HashMap<String, Object> updateSets(@RequestBody String data, HttpServletRequest request) {
+    HashMap<String, Object> updateClassify(@RequestBody String data, HttpServletRequest request) {
         ErrorCode errCodesIndex = ErrorCode.SUCCESS;
         ErrorMsg errorMsg = new ErrorMsg();
 
@@ -117,7 +113,7 @@ public class SetsController extends AuthModule{
         }
         logger.debug("*************data: " + data);
 
-        SetsUpdate brand = JSON.parseObject(data, SetsUpdate.class);
+        ClassifyUpdate brand = JSON.parseObject(data, ClassifyUpdate.class);
         logger.debug(JSON.toJSON(brand));
         int rc = service.updateByPrimaryKeySelective(TransformData(brand));
         if (rc == 0) {
@@ -128,11 +124,10 @@ public class SetsController extends AuthModule{
         return result;
     }
 
-    private Sets TransformData(SetsUpdate src) {
-        Sets result = new Sets();
-        result.setSetsId(src.getSetsId());
-        result.setSetsProductId(src.getSetsProductId());
-        result.setSetsName(src.getSetsName());
+    private Classify TransformData(ClassifyUpdate src) {
+        Classify result = new Classify();
+        result.setClassifyId(result.getClassifyId());
+        result.setClName(result.getClName());
         return result;
     }
 
@@ -150,9 +145,9 @@ public class SetsController extends AuthModule{
         }
         logger.debug("*************data: " + data);
 
-        SetsDel setsDel = JSON.parseObject(data, SetsDel.class);
-        logger.debug(JSON.toJSON(setsDel));
-        int rc = service.deleteByPrimaryKey(setsDel.getSetsId());
+        ClassifyDel classifyDel = JSON.parseObject(data, ClassifyDel.class);
+        logger.debug(JSON.toJSON(classifyDel));
+        int rc = service.deleteByPrimaryKey(classifyDel.getClassifyId());
         if (rc == 0) {
             errCodesIndex = ErrorCode.INSERT_USER_ERROR;
         }
